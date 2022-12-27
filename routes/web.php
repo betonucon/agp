@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LogoutController;
 */
 
 
-Route::group(['prefix' => 'barang'],function(){
+Route::group(['prefix' => 'barang','middleware'    => 'auth'],function(){
     Route::get('/',[BarangController::class, 'index']);
     Route::get('/view',[BarangController::class, 'view_data']);
     Route::get('/getdata',[BarangController::class, 'get_data']);
