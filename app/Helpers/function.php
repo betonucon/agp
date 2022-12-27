@@ -125,6 +125,14 @@ function uang($nil){
 function no_sepasi($text){
    return str_replace(' ', '_', $text);
 }
+function encoder($b) {
+   $data=base64_encode(base64_encode($b));
+   return $data;
+}
+function decoder($b) {
+   $data=base64_decode(base64_decode($b));
+   return $data;
+}
 function link_dokumen($file){
    $curl = curl_init();
      curl_setopt ($curl, CURLOPT_URL, "".url_plug()."/".$file);

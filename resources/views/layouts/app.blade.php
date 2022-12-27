@@ -30,7 +30,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{url_plug()}}/dist/css/skins/_all-skins.min.css">
-  <script src="{{url_plug()}}/dist/sweetalert.js"></script>
+  <script src="{{url_plug()}}/js/sweetalert.min.js"></script>
   <link rel="stylesheet" href="{{url_plug()}}/dist/sweetalert.css">
   @stack('style')
   <style>
@@ -127,7 +127,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>AGP</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -145,7 +145,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{url_plug()}}/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">@ {{Auth::user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -153,7 +153,7 @@
                 <img src="{{url_plug()}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  @ {{Auth::user()->name}} - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -178,7 +178,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" id="logout" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -201,20 +201,12 @@
           <img src="{{url_plug()}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>@ {{Auth::user()->name}}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+      
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       @include('layouts.side')
@@ -237,7 +229,6 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
       <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
     <!-- Tab panes -->
@@ -291,7 +282,7 @@
             </a>
           </li>
         </ul>
-        <!-- /.control-sidebar-menu -->
+        
 
         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
@@ -344,7 +335,7 @@
             </a>
           </li>
         </ul>
-        <!-- /.control-sidebar-menu -->
+       
 
       </div>
       <!-- /.tab-pane -->
@@ -352,7 +343,7 @@
       <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
       <!-- /.tab-pane -->
       <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
+      <div class="tab-pane active" id="control-sidebar-settings-tab">
         <form method="post">
           <h3 class="control-sidebar-heading">General Settings</h3>
 
@@ -436,6 +427,7 @@
 <!-- Select2 -->
 <script src="{{url_plug()}}/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- InputMask -->
+<script src="{{url_plug()}}/bower_components/chart.js/Chart.js"></script>
 <script src="{{url_plug()}}/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="{{url_plug()}}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="{{url_plug()}}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
@@ -481,7 +473,22 @@
 
         
         $('.dropdown-toggle').dropdown()
-		
+        $("#logout").on("click", function() {
+          swal({
+                title: "Yakin melakukan logout?",
+                text: "Proses logout akan mengluarkan anda dari sistem",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                  if (willDelete) {
+                    location.assign("{{url('logout-perform')}}")
+                  } else {
+                    
+                  }
+              });
+        }) 
   </script>
 @stack('datatable')
 @stack('ajax')

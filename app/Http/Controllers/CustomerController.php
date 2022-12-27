@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
-use App\Models\Barang;
+use App\Models\Customer;
 use App\Models\User;
 
-class BarangController extends Controller
+class CustomerController extends Controller
 {
     
     public function index(request $request)
@@ -19,7 +19,7 @@ class BarangController extends Controller
         error_reporting(0);
         $template='top';
         
-        return view('barang.index',compact('template'));
+        return view('customer.index',compact('template'));
     }
     public function view_data(request $request)
     {
@@ -27,13 +27,13 @@ class BarangController extends Controller
         $template='top';
         $id=decoder($request->kd);
         
-        $data=Barang::where('KD_Barang',$id)->first();
+        $data=Customer::where('KD_Customer',$id)->first();
         if($id==0){
             $disabled='';
         }else{
             $disabled='readonly';
         }
-        return view('barang.view_data',compact('template','data','disabled','id'));
+        return view('customer.view_data',compact('template','data','disabled','id'));
     }
     public function modal(request $request)
     {
@@ -54,18 +54,14 @@ class BarangController extends Controller
     public function get_data(request $request)
     {
         error_reporting(0);
-        $query = Barang::query();
-        if($request->Kd_JenisBarang!=""){
-            $data = $query->where('Kd_JenisBarang',$request->Kd_JenisBarang);
+        $query = Customer::query();
+        if($request->Kota!=""){
+            $data = $query->where('Kota',$request->Kota);
         }
-        $data = $query->orderBy('Kd_Barang','Asc')->get();
+        $data = $query->orderBy('KD_Customer','Asc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()
-            ->addColumn('uang_Harga_Beli', function ($row) {
-                $btn=uang_pembulat($row->Harga_Beli);
-                return $btn;
-            })
             ->addColumn('action', function ($row) {
                 $btn='
                     <div class="btn-group">
@@ -73,7 +69,7 @@ class BarangController extends Controller
                          <i class="fa fa-ellipsis-h"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:;" onclick="location.assign(`'.url('barang/view').'?kd='.encoder($row->KD_Barang).'`)">View</a></li>
+                            <li><a href="javascript:;" onclick="location.assign(`'.url('sales/view').'?kd='.encoder($row->KD_Customer).'`)">View</a></li>
                             <li><a href="javascript:;">Delete</a></li>
                         </ul>
                     </div>

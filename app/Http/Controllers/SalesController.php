@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
-use App\Models\Barang;
+use App\Models\Sales;
+use App\Models\Viewsales;
 use App\Models\User;
 
-class BarangController extends Controller
+class SalesController extends Controller
 {
     
     public function index(request $request)
@@ -19,7 +20,7 @@ class BarangController extends Controller
         error_reporting(0);
         $template='top';
         
-        return view('barang.index',compact('template'));
+        return view('sales.index',compact('template'));
     }
     public function view_data(request $request)
     {
@@ -27,13 +28,13 @@ class BarangController extends Controller
         $template='top';
         $id=decoder($request->kd);
         
-        $data=Barang::where('KD_Barang',$id)->first();
+        $data=Sales::where('KD_Salesman',$id)->first();
         if($id==0){
             $disabled='';
         }else{
             $disabled='readonly';
         }
-        return view('barang.view_data',compact('template','data','disabled','id'));
+        return view('sales.view_data',compact('template','data','disabled','id'));
     }
     public function modal(request $request)
     {
@@ -54,18 +55,14 @@ class BarangController extends Controller
     public function get_data(request $request)
     {
         error_reporting(0);
-        $query = Barang::query();
-        if($request->Kd_JenisBarang!=""){
-            $data = $query->where('Kd_JenisBarang',$request->Kd_JenisBarang);
+        $query = Viewsales::query();
+        if($request->KD_GroupSales!=""){
+            $data = $query->where('KD_GroupSales',$request->KD_GroupSales);
         }
-        $data = $query->orderBy('Kd_Barang','Asc')->get();
+        $data = $query->orderBy('KD_Salesman','Asc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()
-            ->addColumn('uang_Harga_Beli', function ($row) {
-                $btn=uang_pembulat($row->Harga_Beli);
-                return $btn;
-            })
             ->addColumn('action', function ($row) {
                 $btn='
                     <div class="btn-group">
@@ -73,7 +70,13 @@ class BarangController extends Controller
                          <i class="fa fa-ellipsis-h"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:;" onclick="location.assign(`'.url('barang/view').'?kd='.encoder($row->KD_Barang).'`)">View</a></li>
+                            <li><a href="javascript:;" onclick="location.assign(`'.url('sales/view').'?kd='.encoder($row->KD_Salesman).'`)">View</a></li>';
+                            if($row->coun==0){
+                                $btn.='<li><a href="javascript:;" onclick="buat_user(`'.$row->KD_Salesman.'`)">Create Akun</a></li>';
+                            }else{
+                                $btn.='<li><a href="javascript:;" onclick="tutup_user(`'.$row->KD_Salesman.'`)">Close Akun</a></li>';
+                            }
+                            $btn.='
                             <li><a href="javascript:;">Delete</a></li>
                         </ul>
                     </div>
@@ -86,6 +89,18 @@ class BarangController extends Controller
     }
     
 
+    public function buat_user(request $request){
+        $sales=Sales::where('KD_Salesman',$request->KD_Salesman)->first();
+        $data = User::UpdateOrcreate([
+            'username'=>$request->KD_Salesman,
+        ],[
+            'name'=>$sales->Nama,
+            'email'=>$request->KD_Salesman.'@gmail.com',
+            'password'=>Hash::make('agp123'),
+            'role_id'=>3,
+            'active_status'=>1,
+        ]);
+    }
     public function delete_data(request $request){
         $data = Supplier::where('id',$request->id)->delete();
     }

@@ -69,80 +69,347 @@
     </script>
 @endpush
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper" style="min-height: 926.281px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Mst Barang
-        
+        Dashboard
+        <small>Control Transaksi</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Barang</li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
 
-    <!-- Main content -->
+    
     <section class="content">
-
-      <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title"></h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
-        </div>
-        <div class="box-header with-border">
-          <div class="row">
-            <div class="col-md-6">
-                ss
-            </div>
-            <div class="col-md-6">
-                ssss
-            </div>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-           
-            <div class="col-md-12">
-              <div class="table-responsive">
-                <table id="data-table-fixed-header" class="display">
-                    <thead>
-                        <tr>
-                            <th width="5%">No</th>
-                            
-                            <th width="5%"></th>
-                            <th width="13%">KD Barang</th>
-                            <th width="9%">KD Jenis</th>
-                            <th>Nama Barang</th>
-                            <th width="15%">Harga Beli</th>
-                        </tr>
-                    </thead>
-                    
-                </table>
-              </div>
-            </div>
+      
+    <div class="row">
+        @foreach(get_kdjenis() as $no=>$kd)
+            <?php
+                if($no==0){
+                    $color="blue";
+                }
+                if($no==1){
+                    $color="aqua";
+                }
+                if($no==2){
+                    $color="green";
+                }
+                if($no==3){
+                    $color="red";
+                }
+                
+            ?>
+            <div class="col-lg-3 col-xs-6">
             
-          </div>
-          <!-- /.row -->
+                <div class="small-box bg-{{$color}}">
+                    <div class="inner">
+                        <h3>{{count_barang_even($kd->Kd_JenisBarang)}}<sup style="font-size: 20px">Pr</sup></h3>
+
+                        <p>{{$kd->Kd_JenisBarang}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{{url('barang')}}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        @endforeach
+            <div class="col-lg-3 col-xs-6">
+            
+                <div class="small-box bg-orange">
+                    <div class="inner">
+                        <h3>{{count_barang()}}<sup style="font-size: 20px">Pr</sup></h3>
+
+                        <p>Total Pr</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{{url('barang')}}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+    </div>
+        
+        
+      
+      <div class="row">
+        <div class="col-md-9">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Grafik Product Request</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart">
+                        <canvas id="barChart" style="height: 230px; width: 510px;" height="230" width="510"></canvas>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          d
+        <div class="col-md-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Product Request</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    @foreach(get_kdjenis() as $no=>$kd)
+                        <?php
+                            if($no==0){
+                                $color="blue";
+                            }
+                            if($no==1){
+                                $color="aqua";
+                            }
+                            if($no==2){
+                                $color="green";
+                            }
+                            if($no==3){
+                                $color="red";
+                            }
+                            
+                        ?>
+                        <div class="progress-group">
+                            <span class="progress-text">{{$kd->Kd_JenisBarang}}</span>
+                            <span class="progress-number"><b>{{persen_barang_even($kd->Kd_JenisBarang)}}</b></span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-{{$color}}" style="width: {{persen_barang_even($kd->Kd_JenisBarang)}}%"></div>
+                            </div>
+                        </div>
+                    @endforeach
+                        <div class="progress-group">
+                            <span class="progress-text">Total</span>
+                            <span class="progress-number"><b>100</b></span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-yellow" style="width: 100%"></div>
+                            </div>
+                        </div>
+                </div>
+                  
+            </div>
+                 
+                
         </div>
       </div>
-      <!-- /.box -->
+      <div class="row">
+        <div class="col-md-9">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Grafik Customer Registrasi</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart">
+                        <canvas id="barChartcustomer" style="height: 230px; width: 510px;" height="230" width="510"></canvas>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Customer Registrasi</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    @foreach(get_kdjenis() as $no=>$kd)
+                        <?php
+                            if($no==0){
+                                $color="blue";
+                            }
+                            if($no==1){
+                                $color="aqua";
+                            }
+                            if($no==2){
+                                $color="green";
+                            }
+                            if($no==3){
+                                $color="red";
+                            }
+                            
+                        ?>
+                        <div class="progress-group">
+                            <span class="progress-text">{{$kd->Kd_JenisBarang}}</span>
+                            <span class="progress-number"><b>{{persen_barang_even($kd->Kd_JenisBarang)}}</b></span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-{{$color}}" style="width: {{persen_barang_even($kd->Kd_JenisBarang)}}%"></div>
+                            </div>
+                        </div>
+                    @endforeach
+                        <div class="progress-group">
+                            <span class="progress-text">Total</span>
+                            <span class="progress-number"><b>100</b></span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-yellow" style="width: 100%"></div>
+                            </div>
+                        </div>
+                </div>
+                  
+            </div>
+                 
+                
+        </div>
+      </div>
+      
 
     </section>
-    <!-- /.content -->
   </div>
 @endsection
 
 @push('ajax')
-       
+<script src="{{url_plug()}}/bower_components/chart.js/Chart.js"></script>
+<!-- FastClick -->
+<!-- page script -->
+<script>
+  $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
+
+    
+
+    var areaChartData = {
+      labels  : [
+        @for($x=1;$x<13;$x++)
+            '{{bulan(ubah_bulan($x))}}',
+        @endfor
+      ],
+      datasets: [
+        {
+          label               : 'Electronics',
+          fillColor           : 'rgba(210, 214, 222, 1)',
+          strokeColor         : 'rgba(210, 214, 222, 1)',
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [
+            @for($x=1;$x<13;$x++)
+                {{$x*10}},
+            @endfor
+          ]
+        },
+        {
+          label               : 'Digital Goods',
+          fillColor           : 'rgba(60,141,188,0.9)',
+          strokeColor         : 'rgba(60,141,188,0.8)',
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [
+            @for($x=1;$x<13;$x++)
+                {{$x*12}},
+            @endfor
+          ]
+        }
+      ]
+    }
+    // get_CustomerYear
+    var areaChartDatacustomer = {
+      labels  : [
+        @foreach(get_CustomerYear() as $getcu)
+            '{{$getcu->year}}',
+        @endforeach
+      ],
+      datasets: [
+        {
+          label               : 'Electronics',
+          fillColor           : 'rgba(210, 214, 222, 1)',
+          strokeColor         : 'rgba(210, 214, 222, 1)',
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [
+            @foreach(get_CustomerYear() as $getcu)
+                {{count_yearcustomer($getcu->year)}},
+            @endforeach
+          ]
+        }
+      ]
+    }
+
+   
+   
+    var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
+    var barChart                         = new Chart(barChartCanvas)
+    var barChartData                     = areaChartData
+    barChartData.datasets[1].fillColor   = '#00a65a'
+    barChartData.datasets[1].strokeColor = '#00a65a'
+    barChartData.datasets[1].pointColor  = '#00a65a'
+   
+   
+    var barChartCanvascustomer                   = $('#barChartcustomer').get(0).getContext('2d')
+    var barChartcustomer                         = new Chart(barChartCanvascustomer)
+    var barChartDatacustomer                     = areaChartDatacustomer
+    barChartDatacustomer.datasets[0].fillColor   = 'blue'
+    barChartDatacustomer.datasets[0].strokeColor = 'blue'
+    barChartDatacustomer.datasets[0].pointColor  = 'blue'
+
+
+
+    var barChartOptions                  = {
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero        : true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines      : true,
+      //String - Colour of the grid lines
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth      : 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines  : true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke           : true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth          : 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing         : 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing       : 1,
+      //String - A legend template
+      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      //Boolean - whether to make the chart responsive
+      responsive              : true,
+      maintainAspectRatio     : true
+    }
+
+    barChartOptions.datasetFill = false
+    barChart.Bar(barChartData, barChartOptions)
+    barChartcustomer.Bar(barChartDatacustomer, barChartOptions)
+  })
+</script>      
 @endpush
