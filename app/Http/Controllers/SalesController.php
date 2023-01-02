@@ -59,7 +59,7 @@ class SalesController extends Controller
         if($request->KD_GroupSales!=""){
             $data = $query->where('KD_GroupSales',$request->KD_GroupSales);
         }
-        $data = $query->orderBy('KD_Salesman','Asc')->get();
+        $data = $query->orderBy('coun','Asc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()

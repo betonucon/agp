@@ -1,7 +1,7 @@
 <?php
 
 function get_kdjenis(){
-    $data=App\Models\Barang::select('Kd_JenisBarang')->groupBy('Kd_JenisBarang')->get();
+    $data=App\Models\Barang::select('kd_divisi')->groupBy('kd_divisi')->get();
     return $data;
 }
 function get_Kota(){

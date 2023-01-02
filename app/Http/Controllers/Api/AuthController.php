@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\User;
+use App\Models\Viewloginsales;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -22,16 +23,18 @@ class AuthController extends BaseController
     {
         error_reporting(0);
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){ 
-            $user = Auth::user(); 
+            $auth = Auth::user(); 
+            $user = Viewloginsales::where('username',$auth->username)->first(); 
             $hapus=Accesstoken::where('tokenable_id',$user->id)->delete();
             
-                if($user->active_status==1){
+                if($auth->active_status==1){
 
-                    $berier=$user->createToken('MyApp')->plainTextToken;
+                    $berier=$auth->createToken('MyApp')->plainTextToken;
                     $token=explode('|',$berier);
                     // $success['token'] =  $berier; 
                     $success['token'] =  $berier; 
-                    $success['name'] =  $user->name;
+                    $success['nama'] =  $user->Nama;
+                    $success['KD_Salesman'] =  $user->KD_Salesman;
                     
                     return $this->sendResponse($success, 'User login successfully.');
                 }else{
@@ -47,7 +50,7 @@ class AuthController extends BaseController
             
         } 
         else{ 
-            $error='Email atau password anda salah';
+            $error='username atau password anda salah';
             return $this->sendResponseerror($error);
         } 
     }

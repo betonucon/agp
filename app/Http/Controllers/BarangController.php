@@ -55,8 +55,8 @@ class BarangController extends Controller
     {
         error_reporting(0);
         $query = Barang::query();
-        if($request->Kd_JenisBarang!=""){
-            $data = $query->where('Kd_JenisBarang',$request->Kd_JenisBarang);
+        if($request->kd_divisi!=""){
+            $data = $query->where('kd_divisi',$request->kd_divisi);
         }
         $data = $query->orderBy('Kd_Barang','Asc')->get();
 

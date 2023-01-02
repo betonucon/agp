@@ -68,9 +68,9 @@
             };
         }();
 
-        function pilih_jenis(Kd_JenisBarang){
+        function pilih_jenis(kd_divisi){
           var tables=$('#data-table-fixed-header').DataTable();
-          tables.ajax.url("{{ url('barang/getdata')}}?Kd_JenisBarang="+Kd_JenisBarang).load();
+          tables.ajax.url("{{ url('barang/getdata')}}?kd_divisi="+kd_divisi).load();
           tables.on( 'draw', function () {
               var count=tables.data().count();
                 $('#count_data').html('Total data :'+count)  
@@ -129,7 +129,7 @@
                   <select onchange="pilih_jenis(this.value)" class="form-control  input-sm">
                     <option value="">All Data</option>
                     @foreach(get_kdjenis() as $kd)
-                      <option value="{{$kd->Kd_JenisBarang}}">{{$kd->Kd_JenisBarang}}</option>
+                      <option value="{{$kd->kd_divisi}}">{{$kd->kd_divisi}}</option>
                     @endforeach
                   </select>
                
