@@ -35,6 +35,8 @@ class AuthController extends BaseController
                     $success['token'] =  $berier; 
                     $success['nama'] =  $user->Nama;
                     $success['KD_Salesman'] =  $user->KD_Salesman;
+                    $success['KD_Divisi'] =  $user->KD_Divisi;
+                    $success['Nama_Divisi'] =  $user->Nama_Divisi;
                     
                     return $this->sendResponse($success, 'User login successfully.');
                 }else{

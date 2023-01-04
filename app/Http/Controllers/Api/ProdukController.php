@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\User;
 use App\Models\Barang;
+use App\Models\Viewbarang;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class ProdukController extends BaseController
         }else{
             $page=$request->page;
         }
-        $query=Barang::query();
+        $query=Viewbarang::query();
 
         $get=$query->orderBy('Nama_Barang','Asc')->paginate(20);
         $cek=$query->count();
@@ -32,6 +33,24 @@ class ProdukController extends BaseController
                 $cl=[];
                 $cl['KD_Barang'] =$o->KD_Barang;
                 $cl['Nama_Barang'] = $o->Nama_Barang;
+                $cl['Nama_Divisi'] = $o->Nama_Divisi;
+                if($o->thumbnail!=null){
+                    $cl['thumbnail'] = url_plug().'/_file_foto/'.$o->thumbnail;
+                }else{
+                    $cl['thumbnail'] = url_plug().'/_file_foto/exampe.png';
+                }
+                $foto=[];
+                    if($o->jumlah_foto>0){
+                        foreach(get_fotobarang($o->KD_Barang) as $no=>$ft){
+                            $subfoto['foto']=url_plug().'/_file_foto/'.$ft->foto;
+                            $foto[]=$subfoto;
+                        }
+                    }else{
+                        $subfoto['foto']=url_plug().'/_file_foto/exampe.png';
+                        $foto[]=$subfoto;
+                    }
+                    
+                $cl['detail_foto'] = $foto;
                 $sub=$cl;  
                 
             $col[]=$sub;

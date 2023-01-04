@@ -45,7 +45,9 @@
                         { data: 'KD_Barang' },
                         { data: 'Kd_JenisBarang' },
                         { data: 'Nama_Barang' },
+                        { data: 'Nama_Divisi' },
                         { data: 'uang_Harga_Beli' },
+                        { data: 'count_foto' },
                         
                       ],
                       
@@ -68,9 +70,9 @@
             };
         }();
 
-        function pilih_jenis(kd_divisi){
+        function pilih_jenis(KD_Divisi){
           var tables=$('#data-table-fixed-header').DataTable();
-          tables.ajax.url("{{ url('barang/getdata')}}?kd_divisi="+kd_divisi).load();
+          tables.ajax.url("{{ url('barang/getdata')}}?KD_Divisi="+KD_Divisi).load();
           tables.on( 'draw', function () {
               var count=tables.data().count();
                 $('#count_data').html('Total data :'+count)  
@@ -125,11 +127,11 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <label>Jenis Barang</label>
+                <label>Divisi</label>
                   <select onchange="pilih_jenis(this.value)" class="form-control  input-sm">
                     <option value="">All Data</option>
-                    @foreach(get_kdjenis() as $kd)
-                      <option value="{{$kd->kd_divisi}}">{{$kd->kd_divisi}}</option>
+                    @foreach(get_divisi() as $kd)
+                      <option value="{{$kd->KD_Divisi}}">[{{$kd->KD_Divisi}}] {{$kd->Nama_Divisi}}</option>
                     @endforeach
                   </select>
                
@@ -159,7 +161,9 @@
                             <th width="13%">KD Barang</th>
                             <th width="9%">KD Jenis</th>
                             <th>Nama Barang</th>
+                            <th width="15%">Divisi</th>
                             <th width="15%">Harga Beli</th>
+                            <th width="7%">J.Foto</th>
                         </tr>
                     </thead>
                     

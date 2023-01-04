@@ -61,10 +61,10 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-3 control-label">KD Barang</label>
+                      <label for="inputEmail3" class="col-sm-3 control-label">Kategori Barang</label>
 
                       <div class="col-sm-9">
-                        <input type="text" name="KD_Barang" class="form-control input-sm" readonly value="{{$data->KD_Barang}}" placeholder="Ketik...">
+                        <input type="text" name="Nama_Divisi" class="form-control input-sm" readonly value="{{$data->Nama_Divisi}}" placeholder="Ketik...">
                       </div>
                     </div>
                     
@@ -123,10 +123,34 @@
           </form>
         </div>
         <!-- /.box-body -->
+        <div class="box-body">
+          <form class="form-horizontal" id="mydata" method="post" action="{{ url('barang/upload') }}" enctype="multipart/form-data" >
+            @csrf
+            <input type="hidden" name="KD_Barang" value="{{$data->KD_Barang}}">
+            <!-- <input type="submit"> -->
+            <div class="row">
+            
+              <div class="col-md-12" style="background: #efeff1;">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-1 control-label">Foto</label>
+
+                    <div class="col-sm-5">
+                      <input type="file" name="foto"  class="form-control input-sm">
+                    </div>
+                    <div class="col-sm-1">
+                      <span  class="btn btn-sm btn-info pull-left" onclick="simpan_data()">Upload</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div id="tampil-foto" style="padding: 2%;" ></div>    
+        </div>
         <div class="box-footer">
         
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                <button type="submit" class="btn btn-default" onclick="location.assign(`{{url('barang')}}`)">Kembali</button>
                  
         </div>
       </div>
@@ -138,5 +162,124 @@
 @endsection
 
 @push('ajax')
-       
+    <script> 
+        $('#tampil-foto').load("{{url('barang/modal_foto')}}?KD_Barang={{$data->KD_Barang}}");
+
+        function hapus_foto(id){
+           
+            swal({
+                title: "Yakin menghapus foto ini ?",
+                text: "data akan hilang dari foto produk ini",
+                type: "warning",
+                icon: "error",
+                showCancelButton: true,
+                align:"center",
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }).then((willDelete) => {
+                if (willDelete) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{url('barang/hapus_foto')}}",
+                            data: "id="+id,
+                            success: function(msg){
+                                swal("Success! berhasil terhapus!", {
+                                    icon: "success",
+                                });
+                                $('#tampil-foto').load("{{url('barang/modal_foto')}}?KD_Barang={{$data->KD_Barang}}");
+                            }
+                        });
+                    
+                    
+                } else {
+                    
+                }
+            });
+            
+        } 
+        function aktif_foto(id){
+           
+            swal({
+                title: "Yakin foto ini sebagai foto utama?",
+                text: "data akan tampil sebagai foto utama",
+                type: "warning",
+                icon: "info",
+                showCancelButton: true,
+                align:"center",
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }).then((willDelete) => {
+                if (willDelete) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{url('barang/aktif_foto')}}",
+                            data: "id="+id,
+                            success: function(msg){
+                                swal("Success! berhasil diproses!", {
+                                    icon: "success",
+                                });
+                                $('#tampil-foto').load("{{url('barang/modal_foto')}}?KD_Barang={{$data->KD_Barang}}");
+                            }
+                        });
+                    
+                    
+                } else {
+                    
+                }
+            });
+            
+        } 
+        function simpan_data(){
+            
+            var form=document.getElementById('mydata');
+            
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('barang/upload') }}",
+                    data: new FormData(form),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend: function() {
+                        document.getElementById("loadnya").style.width = "100%";
+                    },
+                    success: function(msg){
+                        var bat=msg.split('@');
+                        if(bat[1]=='ok'){
+                            document.getElementById("loadnya").style.width = "0px";
+                            swal({
+                              title: "Success! berhasil upload!",
+                              icon: "success",
+                            });
+                            $('#tampil-foto').load("{{url('barang/modal_foto')}}?KD_Barang={{$data->KD_Barang}}");
+                        }else{
+                            document.getElementById("loadnya").style.width = "0px";
+                            swal({
+                                title: 'Notifikasi',
+                               
+                                html:true,
+                                text:'ss',
+                                icon: 'error',
+                                buttons: {
+                                    cancel: {
+                                        text: 'Tutup',
+                                        value: null,
+                                        visible: true,
+                                        className: 'btn btn-dangers',
+                                        closeModal: true,
+                                    },
+                                    
+                                }
+                            });
+                            $('.swal-text').html('<div style="width:100%;background:#f2f2f5;padding:1%;text-align:left;font-size:13px">'+msg+'</div>')
+                        }
+                        
+                        
+                    }
+                });
+        };
+    </script> 
 @endpush

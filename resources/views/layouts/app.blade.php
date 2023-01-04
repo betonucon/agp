@@ -58,6 +58,10 @@
           padding: 0.1% 1% !important;
           border-bottom: 0px solid rgb(0 0 0 / 15%) !important;
       }
+      .swal-text {
+            width: 100%;
+            color: #000;
+        }
       @media screen and (max-width: 767px){
         .table-responsive {
             border: 1px solid #ddd0 !important;

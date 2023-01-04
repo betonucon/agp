@@ -4,8 +4,20 @@ function get_kdjenis(){
     $data=App\Models\Barang::select('kd_divisi')->groupBy('kd_divisi')->get();
     return $data;
 }
+function get_divisi(){
+    $data=App\Models\Mdivisi::orderBy('KD_Divisi','Asc')->get();
+    return $data;
+}
 function get_Kota(){
     $data=App\Models\Customer::select('Kota')->groupBy('Kota')->get();
+    return $data;
+}
+function cont_fotobarang($KD_Barang){
+    $data=App\Models\Fotobarang::where('KD_Barang',$KD_Barang)->count();
+    return $data;
+}
+function get_fotobarang($KD_Barang){
+    $data=App\Models\Fotobarang::where('KD_Barang',$KD_Barang)->orderBy('sts','Desc')->get();
     return $data;
 }
 function get_CustomerYear(){

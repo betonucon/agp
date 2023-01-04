@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
+use App\Models\Viewbarang;
+use App\Models\Fotobarang;
 use App\Models\Barang;
 use App\Models\User;
 
@@ -27,7 +29,7 @@ class BarangController extends Controller
         $template='top';
         $id=decoder($request->kd);
         
-        $data=Barang::where('KD_Barang',$id)->first();
+        $data=Viewbarang::where('KD_Barang',$id)->first();
         if($id==0){
             $disabled='';
         }else{
@@ -35,18 +37,13 @@ class BarangController extends Controller
         }
         return view('barang.view_data',compact('template','data','disabled','id'));
     }
-    public function modal(request $request)
+    public function modal_foto(request $request)
     {
         error_reporting(0);
         $template='top';
-        $data=Supplier::find($request->id);
-        $id=$request->id;
-        if($request->id==0){
-            $disabled='';
-        }else{
-            $disabled='readonly';
-        }
-        return view('supplier.modal',compact('template','data','disabled','id'));
+        $data=Fotobarang::where('KD_Barang',$request->KD_Barang)->get();
+        
+        return view('barang.modal_foto',compact('data'));
     }
 
     
@@ -54,9 +51,9 @@ class BarangController extends Controller
     public function get_data(request $request)
     {
         error_reporting(0);
-        $query = Barang::query();
-        if($request->kd_divisi!=""){
-            $data = $query->where('kd_divisi',$request->kd_divisi);
+        $query = Viewbarang::query();
+        if($request->KD_Divisi!=""){
+            $data = $query->where('kd_divisi',$request->KD_Divisi);
         }
         $data = $query->orderBy('Kd_Barang','Asc')->get();
 
@@ -64,6 +61,10 @@ class BarangController extends Controller
             ->addIndexColumn()
             ->addColumn('uang_Harga_Beli', function ($row) {
                 $btn=uang_pembulat($row->Harga_Beli);
+                return $btn;
+            })
+            ->addColumn('count_foto', function ($row) {
+                $btn=$row->jumlah_foto;
                 return $btn;
             })
             ->addColumn('action', function ($row) {
@@ -86,22 +87,32 @@ class BarangController extends Controller
     }
     
 
-    public function delete_data(request $request){
-        $data = Supplier::where('id',$request->id)->delete();
+    public function hapus_foto(request $request){
+        $data = Fotobarang::where('id',$request->id)->delete();
+    }
+    public function aktif_foto(request $request){
+        $mst = Fotobarang::where('id',$request->id)->first();
+        $upd = Fotobarang::where('KD_Barang',$mst->KD_Barang)->update([
+            'sts'=>0
+        ]);
+        $thb = Fotobarang::where('id',$request->id)->update([
+            'sts'=>1
+        ]);
     }
 
     
    
-    public function store(request $request){
+    public function upload(request $request){
         error_reporting(0);
         $rules = [];
         $messages = [];
         
-        $rules['supplier']= 'required';
-        $messages['supplier.required']= 'Lengkapi kolom supplier';
-        
-        $rules['no_telepon']= 'required';
-        $messages['no_telepon.required']= 'Lengkapi kolom nomor telepon';
+        $rules['KD_Barang']= 'required';
+        $messages['KD_Barang.required']= 'Pilih KD_Barang';
+
+        $rules['foto']= 'required|mimes:jpg,png,jpeg,gif';
+        $messages['foto.required']= 'Pilih foto';
+        $messages['foto.mimes']= 'Format yang diterima (pg,png,jpeg,gif)';
         
        
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -118,28 +129,28 @@ class BarangController extends Controller
                 }
             echo'</div></div>';
         }else{
-            if($request->id==0){
-               
-                    $data=Supplier::create([
-                        
-                        'supplier'=>$request->supplier,
-                        'no_telepon'=>$request->no_telepon,
-                    ]);
+            $thumbnail = $request->foto;
+            $thumbnailFileName =$request->KD_Barang.date('ymdhis').'.'.$thumbnail->getClientOriginalExtension();
+            $thumbnailPath =$thumbnailFileName;
 
-                    echo'@ok';
-                
-                
-            }else{
-                $data=Supplier::UpdateOrcreate([
-                    'id'=>$request->id,
-                ],
-                [
-                    'supplier'=>$request->supplier,
-                    'no_telepon'=>$request->no_telepon,
+            $file =\Storage::disk('public_uploads');
+            if($file->put($thumbnailPath, file_get_contents($thumbnail))){
+                if(cont_fotobarang($request->KD_Barang)==0){
+                    $sts=1;
+                }else{
+                    $sts=0;
+                }
+                $data=Fotobarang::create([
+                    
+                    'KD_Barang'=>$request->KD_Barang,
+                    'foto'=>$thumbnailPath,
+                    'sts'=>$sts,
+                    
                 ]);
 
                 echo'@ok';
             }
+           
         }
     }
 }

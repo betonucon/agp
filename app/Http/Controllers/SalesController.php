@@ -59,10 +59,24 @@ class SalesController extends Controller
         if($request->KD_GroupSales!=""){
             $data = $query->where('KD_GroupSales',$request->KD_GroupSales);
         }
-        $data = $query->orderBy('coun','Asc')->get();
+        $data = $query->orderBy('active_status','Asc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()
+            ->addColumn('akun', function ($row) {
+                if($row->active_status==1){
+                    $btn='Aktive';
+                }else{
+                    if($row->active_status=='2'){
+                        $btn='Block';
+                    }else{
+                        $btn='No'; 
+                    }
+                }
+                
+                
+                return $btn;
+            })
             ->addColumn('action', function ($row) {
                 $btn='
                     <div class="btn-group">
@@ -71,11 +85,16 @@ class SalesController extends Controller
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:;" onclick="location.assign(`'.url('sales/view').'?kd='.encoder($row->KD_Salesman).'`)">View</a></li>';
-                            if($row->coun==0){
-                                $btn.='<li><a href="javascript:;" onclick="buat_user(`'.$row->KD_Salesman.'`)">Create Akun</a></li>';
-                            }else{
+                            if($row->active_status==1){
                                 $btn.='<li><a href="javascript:;" onclick="tutup_user(`'.$row->KD_Salesman.'`)">Close Akun</a></li>';
+                            }else{
+                                if($row->active_status==2){
+                                    $btn.='<li><a href="javascript:;" onclick="open_user(`'.$row->KD_Salesman.'`)">Open Akun</a></li>';
+                                }else{
+                                    $btn.='<li><a href="javascript:;" onclick="buat_user(`'.$row->KD_Salesman.'`)">Create Akun</a></li>'; 
+                                }
                             }
+                            
                             $btn.='
                             <li><a href="javascript:;">Delete</a></li>
                         </ul>
@@ -101,8 +120,15 @@ class SalesController extends Controller
             'active_status'=>1,
         ]);
     }
-    public function delete_data(request $request){
-        $data = Supplier::where('id',$request->id)->delete();
+    public function tutup_user(request $request){
+        $data = User::where('username',$request->KD_Salesman)->where('role_id',3)->update([
+            'active_status'=>2
+        ]);
+    }
+    public function open_user(request $request){
+        $data = User::where('username',$request->KD_Salesman)->where('role_id',3)->update([
+            'active_status'=>1
+        ]);
     }
 
     

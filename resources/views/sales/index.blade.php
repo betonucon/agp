@@ -45,8 +45,9 @@
                         { data: 'KD_Salesman' },
                         { data: 'Nama' },
                         { data: 'Alamat' },
-                        { data: 'KD_GroupSales' },
+                        { data: 'KD_Divisi' },
                         { data: 'Posisi' },
+                        { data: 'akun' },
                         
                       ],
                       
@@ -160,8 +161,9 @@
                             <th width="9%">KD Sales</th>
                             <th width="20%">Nama</th>
                             <th>Alamat</th>
-                            <th width="11%">Group</th>
+                            <th width="11%">Divisi</th>
                             <th width="11%">Posisi</th>
+                            <th width="11%">Akun</th>
                         </tr>
                     </thead>
                       
@@ -203,6 +205,76 @@
                  $.ajax({
                    type: 'GET',
                    url: "{{url('sales/buatuser')}}",
+                   data: "KD_Salesman="+KD_Salesman,
+                   success: function(msg){
+                     swal("Success! berhasil dicreate!", {
+                       icon: "success",
+                     });
+                     var table=$('#data-table-fixed-header').DataTable();
+                     table.ajax.url("{{ url('sales/getdata')}}").load();
+                   }
+                 });
+               
+               
+             } else {
+               
+             }
+           });
+           
+         }
+
+        function tutup_user(KD_Salesman){
+           
+           swal({
+             title: "Tutup Akun ?",
+             text: "proses tutup akun salesman",
+             type: "info",
+             icon: "info",
+             showCancelButton: true,
+             align:"center",
+             confirmButtonClass: "btn-danger",
+             confirmButtonText: "Yes, delete it!",
+             closeOnConfirm: false
+           }).then((willDelete) => {
+             if (willDelete) {
+                 $.ajax({
+                   type: 'GET',
+                   url: "{{url('sales/tutup_user')}}",
+                   data: "KD_Salesman="+KD_Salesman,
+                   success: function(msg){
+                     swal("Success! berhasil dicreate!", {
+                       icon: "success",
+                     });
+                     var table=$('#data-table-fixed-header').DataTable();
+                     table.ajax.url("{{ url('sales/getdata')}}").load();
+                   }
+                 });
+               
+               
+             } else {
+               
+             }
+           });
+           
+         }
+
+        function open_user(KD_Salesman){
+           
+           swal({
+             title: "Buka / Aktifkan Akun ?",
+             text: "proses aktifkan akun salesman",
+             type: "info",
+             icon: "info",
+             showCancelButton: true,
+             align:"center",
+             confirmButtonClass: "btn-danger",
+             confirmButtonText: "Yes, delete it!",
+             closeOnConfirm: false
+           }).then((willDelete) => {
+             if (willDelete) {
+                 $.ajax({
+                   type: 'GET',
+                   url: "{{url('sales/open_user')}}",
                    data: "KD_Salesman="+KD_Salesman,
                    success: function(msg){
                      swal("Success! berhasil dicreate!", {

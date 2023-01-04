@@ -21,11 +21,14 @@ use App\Http\Controllers\Auth\LogoutController;
 Route::group(['prefix' => 'barang','middleware'    => 'auth'],function(){
     Route::get('/',[BarangController::class, 'index']);
     Route::get('/view',[BarangController::class, 'view_data']);
+    Route::get('/modal_foto',[BarangController::class, 'modal_foto']);
     Route::get('/getdata',[BarangController::class, 'get_data']);
-    Route::get('/delete_data',[BarangController::class, 'delete_data']);
+    Route::get('/hapus_foto',[BarangController::class, 'hapus_foto']);
+    Route::get('/aktif_foto',[BarangController::class, 'aktif_foto']);
     Route::get('/create',[BarangController::class, 'create']);
     Route::get('/modal',[BarangController::class, 'modal']);
     Route::post('/',[BarangController::class, 'store']);
+    Route::post('/upload',[BarangController::class, 'upload']);
     Route::post('/import',[BarangController::class, 'import']);
 });
 Route::group(['middleware' => 'auth'], function() {
@@ -38,6 +41,8 @@ Route::group(['prefix' => 'sales','middleware'    => 'auth'],function(){
     Route::get('/',[SalesController::class, 'index']);
     Route::get('/view',[SalesController::class, 'view_data']);
     Route::get('/getdata',[SalesController::class, 'get_data']);
+    Route::get('/tutup_user',[SalesController::class, 'tutup_user']);
+    Route::get('/open_user',[SalesController::class, 'open_user']);
     Route::get('/buatuser',[SalesController::class, 'buat_user']);
     Route::get('/delete_data',[SalesController::class, 'delete_data']);
     Route::get('/create',[SalesController::class, 'create']);
