@@ -8,6 +8,14 @@ function get_divisi(){
     $data=App\Models\Mdivisi::orderBy('KD_Divisi','Asc')->get();
     return $data;
 }
+function get_sales(){
+    $data=App\Models\Viewsales::orderBy('KD_Salesman','Asc')->get();
+    return $data;
+}
+function get_statusapprove(){
+    $data=App\Models\Statusapprove::orderBy('id','Asc')->get();
+    return $data;
+}
 function get_Kota(){
     $data=App\Models\Customer::select('Kota')->groupBy('Kota')->get();
     return $data;

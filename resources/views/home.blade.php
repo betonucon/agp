@@ -86,29 +86,15 @@
     <section class="content">
       
     <div class="row">
-        @foreach(get_kdjenis() as $no=>$kd)
-            <?php
-                if($no==0){
-                    $color="blue";
-                }
-                if($no==1){
-                    $color="aqua";
-                }
-                if($no==2){
-                    $color="green";
-                }
-                if($no==3){
-                    $color="red";
-                }
-                
-            ?>
+        @foreach(get_statusapprove() as $no=>$kd)
+            
             <div class="col-lg-3 col-xs-6">
             
-                <div class="small-box bg-{{$color}}">
+                <div class="small-box bg-{{$kd->color}}">
                     <div class="inner">
-                        <h3>{{count_barang_even($kd->Kd_JenisBarang)}}<sup style="font-size: 20px">Pr</sup></h3>
+                        <h3>44<sup style="font-size: 20px">Pr</sup></h3>
 
-                        <p>{{$kd->Kd_JenisBarang}}</p>
+                        <p>{{$kd->status_approve}}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -117,20 +103,7 @@
                 </div>
             </div>
         @endforeach
-            <div class="col-lg-3 col-xs-6">
-            
-                <div class="small-box bg-orange">
-                    <div class="inner">
-                        <h3>{{count_barang()}}<sup style="font-size: 20px">Pr</sup></h3>
-
-                        <p>Total Pr</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="{{url('barang')}}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+         
     </div>
         
         
@@ -208,10 +181,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Grafik Customer Registrasi</h3>
+                    <h3 class="box-title">Grafik Sales Order</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -227,7 +200,7 @@
                 <!-- /.box-body -->
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Customer Registrasi</h3>
@@ -338,8 +311,8 @@
     // get_CustomerYear
     var areaChartDatacustomer = {
       labels  : [
-        @foreach(get_CustomerYear() as $getcu)
-            '{{$getcu->year}}',
+        @foreach(get_sales() as $getcu)
+            '{{$getcu->Nama}}',
         @endforeach
       ],
       datasets: [
@@ -352,8 +325,8 @@
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
           data                : [
-            @foreach(get_CustomerYear() as $getcu)
-                {{count_yearcustomer($getcu->year)}},
+            @foreach(get_sales() as $getcu)
+                {{$getcu->id}},
             @endforeach
           ]
         }
