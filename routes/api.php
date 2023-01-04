@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProdukController;
+use App\Http\Controllers\Api\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,5 +23,8 @@ Route::middleware('auth:sanctum')->group( function () {
 
 Route::group(['prefix' => 'barang','middleware'    => 'auth:sanctum'],function(){
     Route::get('/', [ProdukController::class, 'index']);
+});
+Route::group(['prefix' => 'customer','middleware'    => 'auth:sanctum'],function(){
+    Route::get('/', [CustomerController::class, 'index']);
 });
 Route::post('register', [AuthController::class, 'register']);

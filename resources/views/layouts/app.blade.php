@@ -34,11 +34,21 @@
   <link rel="stylesheet" href="{{url_plug()}}/dist/sweetalert.css">
   @stack('style')
   <style>
+      body {
+          font-family: sans-serif !important;
+          font-weight: 400;
+          font-size: 12px  !important;
+          overflow-x: hidden;
+          overflow-y: auto;
+      }
       table.dataTable thead  th {
           padding: 8px 10px !important;
           background: #e7e7f3;
           border-top: 1px solid rgb(0 0 0 / 15%) !important;
           border-bottom: 1px solid rgb(0 0 0 / 15%) !important;
+      }
+      .form-group {
+          margin-bottom: 3px;
       }
       .form-control:focus {
           border-color: #9c9fa1 !important;

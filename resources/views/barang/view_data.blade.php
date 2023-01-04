@@ -10,88 +10,13 @@
     }
   </style>
 @endpush
-@push('datatable')
-<script type="text/javascript">
-        /*
-        Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-        Version: 4.6.0
-        Author: Sean Ngu
-        Website: http://www.seantheme.com/color-admin/admin/
-        */
-        
-        var handleDataTableFixedHeader = function() {
-            "use strict";
-            
-            if ($('#data-table-fixed-header').length !== 0) {
-                var table=$('#data-table-fixed-header').DataTable({
-                    lengthMenu: [20,50,100],
-                    searching:true,
-                    lengthChange:false,
-                    fixedHeader: {
-                        header: true,
-                        headerOffset: $('#header').height()
-                    },
-                    dom: 'lrtip',
-                    responsive: true,
-                    ajax:"{{ url('barang/getdata')}}",
-                      columns: [
-                        { data: 'KD_Barang', render: function (data, type, row, meta) 
-                            {
-                              return meta.row + meta.settings._iDisplayStart + 1;
-                            } 
-                        },
-                        
-                        { data: 'action' },
-                        { data: 'KD_Barang' },
-                        { data: 'Kd_JenisBarang' },
-                        { data: 'Nama_Barang' },
-                        { data: 'uang_Harga_Beli' },
-                        
-                      ],
-                      
-                });
-                $('#cari_datatable').keyup(function(){
-                  table.search($(this).val()).draw() ;
-                })
 
-                
-            }
-        };
-
-        var TableManageFixedHeader = function () {
-            "use strict";
-            return {
-                //main function
-                init: function () {
-                    handleDataTableFixedHeader();
-                }
-            };
-        }();
-
-        function pilih_jenis(Kd_JenisBarang){
-          var tables=$('#data-table-fixed-header').DataTable();
-          tables.ajax.url("{{ url('barang/getdata')}}?Kd_JenisBarang="+Kd_JenisBarang).load();
-          tables.on( 'draw', function () {
-              var count=tables.data().count();
-                $('#count_data').html('Total data :'+count)  
-          } );
-              
-        }
-
-        $(document).ready(function() {
-          TableManageFixedHeader.init();
-               
-        });
-
-        
-    </script>
-@endpush
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Mst Barang
+        Form Barang
         
       </h1>
       <ol class="breadcrumb">
@@ -113,66 +38,96 @@
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <div class="box-header with-border">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                  <label>Total Data</label><br>
-                  <p id="count_data">Total Data : {{count_barang()}}</p>
+        
+        <div class="box-body">
+          <form class="form-horizontal">
+            <div class="row">
+            
+              <div class="col-md-6">
+                
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-3 control-label">KD Barang</label>
+
+                      <div class="col-sm-5">
+                        <input type="text" name="KD_Barang" class="form-control input-sm" readonly value="{{$data->KD_Barang}}" placeholder="Ketik...">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-3 control-label">Nama Barang</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" name="Nama_Barang" class="form-control input-sm" readonly value="{{$data->Nama_Barang}}" placeholder="Ketik...">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-3 control-label">KD Barang</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" name="KD_Barang" class="form-control input-sm" readonly value="{{$data->KD_Barang}}" placeholder="Ketik...">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <!-- /.box-body -->
                   
+                  <!-- /.box-footer -->
+                
+              </div>
+              <div class="col-md-6">
+                
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-3 control-label">Harga Spec</label>
+
+                      <div class="col-sm-3">
+                        <input type="text" name="Spec" class="form-control input-sm" readonly value="{{$data->Spec}}" placeholder="Ketik...">
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli)}}" placeholder="Ketik...">
+                      </div>
+                    </div>
+                    @if($data->Satuan2!="")
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Harga {{$data->Satuan2}}</label>
+
+                        <div class="col-sm-3">
+                          <input type="text" name="Isi2" class="form-control input-sm" readonly value="{{$data->Isi2}} @if($data->Satuan3!='') X {{$data->Isi3}} @endif " placeholder="Ketik...">
+                        </div>
+                        <div class="col-sm-5">
+                          <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli)}}" placeholder="Ketik...">
+                        </div>
+                      </div>
+                    @endif
+                    @if($data->Satuan3!="")
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Harga {{$data->Satuan3}}</label>
+
+                        <div class="col-sm-3">
+                          <input type="text" name="Isi3" class="form-control input-sm" readonly value="{{$data->Isi3}}" placeholder="Ketik...">
+                        </div>
+                        <div class="col-sm-5">
+                          <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli/$data->Isi3)}}" placeholder="Ketik...">
+                        </div>
+                      </div>
+                    @endif
+                    
+                  </div>
+                  <!-- /.box-body -->
+                  
+                  <!-- /.box-footer -->
+                
               </div>
               
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Jenis Barang</label>
-                  <select onchange="pilih_jenis(this.value)" class="form-control  input-sm">
-                    <option value="">All Data</option>
-                    @foreach(get_kdjenis() as $kd)
-                      <option value="{{$kd->Kd_JenisBarang}}">{{$kd->Kd_JenisBarang}}</option>
-                    @endforeach
-                  </select>
-               
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                  <label>Cari data</label>
-                  <input type="text" id="cari_datatable" placeholder="Search....." class="form-control input-sm">
-                  
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-           
-            <div class="col-md-12">
-              <div class="table-responsive">
-                <table id="data-table-fixed-header" class="display">
-                    <thead>
-                        <tr>
-                            <th width="5%">No</th>
-                            
-                            <th width="5%"></th>
-                            <th width="13%">KD Barang</th>
-                            <th width="9%">KD Jenis</th>
-                            <th>Nama Barang</th>
-                            <th width="15%">Harga Beli</th>
-                        </tr>
-                    </thead>
-                    
-                </table>
-              </div>
-            </div>
-            
-          </div>
-          <!-- /.row -->
+          </form>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          d
+        
+                <button type="submit" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                 
         </div>
       </div>
       <!-- /.box -->
