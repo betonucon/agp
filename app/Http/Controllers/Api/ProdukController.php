@@ -37,7 +37,7 @@ class ProdukController extends BaseController
                 if($o->thumbnail!=null){
                     $cl['thumbnail'] = url_plug().'/_file_foto/'.$o->thumbnail;
                 }else{
-                    $cl['thumbnail'] = url_plug().'/_file_foto/exampe.png';
+                    $cl['thumbnail'] = url_plug().'/_file_foto/example.png';
                 }
                 $foto=[];
                     if($o->jumlah_foto>0){
@@ -46,7 +46,7 @@ class ProdukController extends BaseController
                             $foto[]=$subfoto;
                         }
                     }else{
-                        $subfoto['foto']=url_plug().'/_file_foto/exampe.png';
+                        $subfoto['foto']=url_plug().'/_file_foto/example.png';
                         $foto[]=$subfoto;
                     }
                     
