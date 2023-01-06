@@ -28,6 +28,7 @@ Route::group(['prefix' => 'barang','middleware'    => 'auth:sanctum'],function()
 });
 Route::group(['prefix' => 'master'],function(){
     Route::get('/provinsi', [MasterController::class, 'provinsi']);
+    Route::get('/kategori_produk', [MasterController::class, 'kategori_produk']);
     Route::get('/kota/{Kd_Propinsi?}', [MasterController::class, 'kota']);
 });
 Route::group(['prefix' => 'customer','middleware'    => 'auth:sanctum'],function(){
