@@ -120,13 +120,10 @@ class AuthController extends BaseController
                     
                     return $this->sendResponse($success, 'User login successfully.');
                 }else{
-                    if($user->active_status==2){
-                        $error='Menunggu Approval admin';
-                        return $this->sendResponseerror($error);
-                    }else{
+                   
                         $error='Akun anda telah dibekukan';
                         return $this->sendResponseerror($error);
-                    }
+                    
                 }
             
             
@@ -158,13 +155,10 @@ class AuthController extends BaseController
                     
                     return $this->sendResponse($success, 'User login successfully.');
                 }else{
-                    if($user->active_status==2){
-                        $error='Menunggu Approval admin';
-                        return $this->sendResponseerror($error);
-                    }else{
+                    
                         $error='Akun anda telah dibekukan';
                         return $this->sendResponseerror($error);
-                    }
+                    
                 }
             
             
