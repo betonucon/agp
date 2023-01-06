@@ -22,8 +22,11 @@ class ProdukController extends BaseController
         }else{
             $page=$request->page;
         }
+        
         $query=Viewbarang::query();
-
+        if($request->Nama_Barang!=""){
+            $get=$query->where('Nama_Barang',$request->Nama_Barang);
+        }
         $get=$query->orderBy('Nama_Barang','Asc')->paginate(20);
         $cek=$query->count();
         

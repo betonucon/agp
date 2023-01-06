@@ -29,13 +29,13 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background:url({{url_plug()}}/img/bgbg.jpg)">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{url_plug()}}/img/logo.png">
+    <img src="{{url_plug()}}/img/logo.png" width="50%">
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
+  <div class="login-box-body" style="background: #e5d6d67d;">
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form method="POST" action="{{ route('login') }}">
