@@ -6,6 +6,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomermobileController;
+use App\Http\Controllers\SalesorderController;
 use App\Http\Controllers\Auth\LogoutController;
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,18 @@ Route::group(['prefix' => 'customermobile','middleware'    => 'auth'],function()
     Route::get('/modal',[CustomermobileController::class, 'modal']);
     Route::post('/',[CustomermobileController::class, 'store']);
     Route::post('/import',[CustomermobileController::class, 'import']);
+});
+Route::group(['prefix' => 'salesorder','middleware'    => 'auth'],function(){
+    Route::get('/',[SalesorderController::class, 'index']);
+    Route::get('/view',[SalesorderController::class, 'view_data']);
+    Route::get('/getdata',[SalesorderController::class, 'get_data']);
+    Route::get('/tutup_user',[SalesorderController::class, 'tutup_user']);
+    Route::get('/open_user',[SalesorderController::class, 'open_user']);
+    Route::get('/delete_data',[SalesorderController::class, 'delete_data']);
+    Route::get('/create',[SalesorderController::class, 'create']);
+    Route::get('/modal',[SalesorderController::class, 'modal']);
+    Route::post('/',[SalesorderController::class, 'store']);
+    Route::post('/import',[SalesorderController::class, 'import']);
 });
 Route::group(['prefix' => 'user'],function(){
     Route::get('/', [UserController::class, 'index']);

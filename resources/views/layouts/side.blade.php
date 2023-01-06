@@ -25,9 +25,8 @@
           <ul class="treeview-menu" style="display:@if(Request::is('salesorder/*')==1 || Request::is('salesorder')==1) block @endif">
             <li><a href="{{url('salesorder')}}">&nbsp;<i class="fa  fa-sort-down"></i> New Request</a></li>
             <li><a href="{{url('salesorder/approved')}}">&nbsp;<i class="fa  fa-sort-down"></i> Approved Request</a></li>
-            <li><a href="{{url('customer')}}">&nbsp;<i class="fa  fa-sort-down"></i> Customer</a></li>
           </ul>
         </li>
         
-        <li><a href="#"><i class="fa fa-circle-o text-white"></i> <span>Information</span></a></li>
+        <li><a href="#"><i class="fa fa-clone text-white"></i> <span>Report</span></a></li>
       </ul>

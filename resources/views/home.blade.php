@@ -278,8 +278,9 @@
         @endfor
       ],
       datasets: [
+        @foreach(get_divisi() as $op)
         {
-          label               : 'Electronics',
+          label               : '{{$op->Nama_Divisi}}',
           fillColor           : 'rgba(210, 214, 222, 1)',
           strokeColor         : 'rgba(210, 214, 222, 1)',
           pointColor          : 'rgba(210, 214, 222, 1)',
@@ -292,20 +293,8 @@
             @endfor
           ]
         },
-        {
-          label               : 'Digital Goods',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [
-            @for($x=1;$x<13;$x++)
-                {{$x*12}},
-            @endfor
-          ]
-        }
+        @endforeach
+        
       ]
     }
     // get_CustomerYear

@@ -5,7 +5,7 @@ function get_kdjenis(){
     return $data;
 }
 function get_divisi(){
-    $data=App\Models\Mdivisi::orderBy('KD_Divisi','Asc')->get();
+    $data=App\Models\Mdivisi::whereIn('KD_Divisi',array('ATK','NP','PL'))->orderBy('KD_Divisi','Asc')->get();
     return $data;
 }
 function get_provinsi(){
