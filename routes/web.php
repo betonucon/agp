@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomermobileController;
 use App\Http\Controllers\Auth\LogoutController;
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,16 @@ Route::group(['prefix' => 'customer','middleware'    => 'auth'],function(){
     Route::get('/modal',[CustomerController::class, 'modal']);
     Route::post('/',[CustomerController::class, 'store']);
     Route::post('/import',[CustomerController::class, 'import']);
+});
+Route::group(['prefix' => 'customermobile','middleware'    => 'auth'],function(){
+    Route::get('/',[CustomermobileController::class, 'index']);
+    Route::get('/view',[CustomermobileController::class, 'view_data']);
+    Route::get('/getdata',[CustomermobileController::class, 'get_data']);
+    Route::get('/delete_data',[CustomermobileController::class, 'delete_data']);
+    Route::get('/create',[CustomermobileController::class, 'create']);
+    Route::get('/modal',[CustomermobileController::class, 'modal']);
+    Route::post('/',[CustomermobileController::class, 'store']);
+    Route::post('/import',[CustomermobileController::class, 'import']);
 });
 Route::group(['prefix' => 'user'],function(){
     Route::get('/', [UserController::class, 'index']);

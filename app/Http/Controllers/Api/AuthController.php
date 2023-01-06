@@ -27,6 +27,8 @@ class AuthController extends BaseController
         $rules['nama'] = 'required';
         $rules['email'] = 'required|email|unique:users';
         $rules['phone'] = 'required|numeric|unique:users,username';
+        $rules['Kd_Propinsi'] = 'required';
+        $rules['Kd_Kabupaten'] = 'required';
         $rules['password'] = 'required|string|min:8|confirmed';
 
         $messages['nama.required'] = 'Lengkapi kolom nama';
@@ -37,6 +39,9 @@ class AuthController extends BaseController
         $messages['phone.required'] = 'Lengkapi nomor handphone';
         $messages['phone.numeric'] = 'Format phone harus angka';
         $messages['phone.unique'] = 'Nomor handphone sudah terdaftar';
+
+        $messages['Kd_Propinsi.required'] = 'Lengkapi Provinsi';
+        $messages['Kd_Kabupaten.required'] = 'Lengkapi Kota';
 
         $messages['password.required'] = 'Lengkapi kolom password';
         $messages['password.min'] = 'Minimal 8 Karakter';
@@ -69,11 +74,14 @@ class AuthController extends BaseController
                 
                 $guest=Mobilecustomer::UpdateOrcreate([
                     'kode_customer'=>$kode_customer,
-                    'users_id'=>$user->id,
+                    
                 ],[
+                    'users_id'=>$user->id,
                     'nama_customer'=>$request->nama,
                     'email'=>$request->email,
                     'phone'=>$request->phone,
+                    'Kd_Propinsi'=>$request->Kd_Propinsi,
+                    'Kd_Kabupaten'=>$request->Kd_Kabupaten,
                     'foto'=>'akun.png',
                     'tahun'=>date('Y'),
                     'created_at'=>date('Y-m-d H:i:s')

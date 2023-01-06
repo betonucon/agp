@@ -65,14 +65,14 @@ function count_barang_even($Kd_JenisBarang){
 }
 function kode_customer(){
     
-    $cek=App\Models\Mobilecustomer::where('tahun',date('y'))->count();
+    $cek=App\Models\Mobilecustomer::where('tahun',date('Y'))->count();
     if($cek>0){
-        $mst=App\Models\Mobilecustomer::where('tahun',date('y'))->orderBy('kode_customer','Desc')->firstOrfail();
-        $urutan = (int) substr($mst['kode_customer'], 2, 5);
+        $mst=App\Models\Mobilecustomer::where('tahun',date('Y'))->orderBy('kode_customer','Desc')->firstOrfail();
+        $urutan = (int) substr($mst['kode_customer'], 2, 6);
         $urutan++;
-        $nomor=date('Y').sprintf("%05s",  $urutan);
+        $nomor=date('y').sprintf("%06s",  $urutan);
     }else{
-        $nomor=date('Y').sprintf("%05s",  1);
+        $nomor=date('y').sprintf("%06s",  1);
     }
     return $nomor;
 }
