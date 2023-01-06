@@ -8,6 +8,10 @@ function get_divisi(){
     $data=App\Models\Mdivisi::orderBy('KD_Divisi','Asc')->get();
     return $data;
 }
+function get_provinsi(){
+    $data=App\Models\Provinsi::where('Editke',1)->orderBy('Nama_Propinsi','Asc')->get();
+    return $data;
+}
 function get_sales(){
     $data=App\Models\Viewsales::orderBy('KD_Salesman','Asc')->get();
     return $data;

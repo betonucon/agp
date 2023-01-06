@@ -42,6 +42,10 @@
           overflow-x: hidden;
           overflow-y: auto;
       }
+      .table-responsive {
+          min-height: 300px !important;
+          overflow-x: auto;
+      }
       table.dataTable thead  th {
           padding: 8px 10px !important;
           background: #e7e7f3;

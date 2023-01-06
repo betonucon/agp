@@ -66,6 +66,8 @@ Route::group(['prefix' => 'customermobile','middleware'    => 'auth'],function()
     Route::get('/',[CustomermobileController::class, 'index']);
     Route::get('/view',[CustomermobileController::class, 'view_data']);
     Route::get('/getdata',[CustomermobileController::class, 'get_data']);
+    Route::get('/tutup_user',[CustomermobileController::class, 'tutup_user']);
+    Route::get('/open_user',[CustomermobileController::class, 'open_user']);
     Route::get('/delete_data',[CustomermobileController::class, 'delete_data']);
     Route::get('/create',[CustomermobileController::class, 'create']);
     Route::get('/modal',[CustomermobileController::class, 'modal']);

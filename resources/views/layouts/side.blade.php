@@ -8,9 +8,10 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu" style="display:@if(Request::is('barang/*')==1 || Request::is('barang')==1 || Request::is('customer')==1 || Request::is('sales')==1 || Request::is('employe')==1) block @endif">
+          <ul class="treeview-menu" style="display:@if(Request::is('customermobile/*')==1 || Request::is('customermobile')==1 || Request::is('barang/*')==1 || Request::is('barang')==1 || Request::is('customer')==1 || Request::is('sales')==1 || Request::is('employe')==1) block @endif">
             <li><a href="{{url('barang')}}">&nbsp;<i class="fa  fa-sort-down"></i> Barang</a></li>
             <li><a href="{{url('customer')}}">&nbsp;<i class="fa  fa-sort-down"></i> Customer</a></li>
+            <li><a href="{{url('customermobile')}}">&nbsp;<i class="fa  fa-sort-down"></i> Customer Mobile</a></li>
             <li><a href="{{url('sales')}}">&nbsp;<i class="fa  fa-sort-down"></i> Sales</a></li>
           </ul>
         </li>

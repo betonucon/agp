@@ -44,13 +44,27 @@ class CustomermobileController extends Controller
     {
         error_reporting(0);
         $query = Viewmobilecustomer::query();
-        if($request->kota!=""){
-            $data = $query->where('kota',$request->kota);
+        if($request->Kd_Propinsi!=""){
+            $data = $query->where('Kd_Propinsi',$request->Kd_Propinsi);
         }
         $data = $query->orderBy('kode_customer','Asc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()
+            ->addColumn('akun', function ($row) {
+                if($row->active_status==1){
+                    $btn='Aktive';
+                }else{
+                    if($row->active_status=='2'){
+                        $btn='Block';
+                    }else{
+                        $btn='No'; 
+                    }
+                }
+                
+                
+                return $btn;
+            })
             ->addColumn('action', function ($row) {
                 $btn='
                     <div class="btn-group">
@@ -58,8 +72,16 @@ class CustomermobileController extends Controller
                          <i class="fa fa-ellipsis-h"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:;" onclick="location.assign(`'.url('customermobile/view').'?kd='.encoder($row->KD_Customer).'`)">View</a></li>
-                            <li><a href="javascript:;">Delete</a></li>
+                            <li><a href="javascript:;" onclick="location.assign(`'.url('customermobile/view').'?kd='.encoder($row->kode_customer).'`)">View</a></li>';
+                            if($row->active_status==1){
+                                $btn.='<li><a href="javascript:;" onclick="tutup_user(`'.$row->users_id.'`)">Close Akun</a></li>';
+                            }else{
+                                
+                                    $btn.='<li><a href="javascript:;" onclick="open_user(`'.$row->users_id.'`)">Open Akun</a></li>';
+                                
+                            }
+                            
+                            $btn.='
                         </ul>
                     </div>
                 ';
@@ -75,7 +97,16 @@ class CustomermobileController extends Controller
         $data = Supplier::where('id',$request->id)->delete();
     }
 
-    
+    public function tutup_user(request $request){
+        $data = User::where('id',$request->users_id)->where('role_id',4)->update([
+            'active_status'=>2
+        ]);
+    }
+    public function open_user(request $request){
+        $data = User::where('id',$request->users_id)->where('role_id',4)->update([
+            'active_status'=>1
+        ]);
+    }
    
     public function store(request $request){
         error_reporting(0);

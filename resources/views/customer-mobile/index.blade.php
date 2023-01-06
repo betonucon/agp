@@ -48,6 +48,7 @@
                         { data: 'Nama_Propinsi' },
                         { data: 'Nama_Kabupaten' },
                         { data: 'phone' },
+                        { data: 'akun' },
                         
                       ],
                       
@@ -70,9 +71,9 @@
             };
         }();
 
-        function pilih_jenis(Kota){
+        function pilih_jenis(Kd_Propinsi){
           var tables=$('#data-table-fixed-header').DataTable();
-          tables.ajax.url("{{ url('customermobile/getdata')}}?Kota="+Kota).load();
+          tables.ajax.url("{{ url('customermobile/getdata')}}?Kd_Propinsi="+Kd_Propinsi).load();
           tables.on( 'draw', function () {
               var count=tables.data().count();
                 $('#count_data').html('Total data :'+count)  
@@ -127,11 +128,11 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <label>Kota</label>
+                <label>Provinsi</label>
                   <select onchange="pilih_jenis(this.value)" class="form-control  input-sm">
                     <option value="">All Data</option>
-                    @foreach(get_Kota() as $kd)
-                      <option value="{{$kd->Kota}}">{{$kd->Kota}}</option>
+                    @foreach(get_provinsi() as $kd)
+                      <option value="{{$kd->Kd_Propinsi}}">{{$kd->Nama_Propinsi}}</option>
                     @endforeach
                   </select>
                
@@ -152,7 +153,7 @@
            
             <div class="col-md-12">
               <div class="table-responsive">
-                <table id="data-table-fixed-header" class="display">
+                <table id="data-table-fixed-header" style="width:120%"class="display">
                     <thead>
                         <tr>
                             <th width="5%">No</th>
@@ -160,10 +161,11 @@
                             <th width="5%"></th>
                             <th width="11%">KD-Customer</th>
                             <th>Nama Customer</th>
-                            <th width="20%">Email</th>
-                            <th width="10%">Provinsi</th>
-                            <th width="15%">Kota</th>
-                            <th width="11%">Handphone</th>
+                            <th width="15%">Email</th>
+                            <th width="8%">Provinsi</th>
+                            <th width="12%">Kota</th>
+                            <th width="9%">Handphone</th>
+                            <th width="9%">Status</th>
                         </tr>
                     </thead>
                       
@@ -187,5 +189,75 @@
 @endsection
 
 @push('ajax')
-       
+    <script>
+      function tutup_user(users_id){
+           
+           swal({
+             title: "Tutup Akun ?",
+             text: "proses tutup akun customer",
+             type: "info",
+             icon: "info",
+             showCancelButton: true,
+             align:"center",
+             confirmButtonClass: "btn-danger",
+             confirmButtonText: "Yes, delete it!",
+             closeOnConfirm: false
+           }).then((willDelete) => {
+             if (willDelete) {
+                 $.ajax({
+                   type: 'GET',
+                   url: "{{url('customermobile/tutup_user')}}",
+                   data: "users_id="+users_id,
+                   success: function(msg){
+                     swal("Success! berhasil dicreate!", {
+                       icon: "success",
+                     });
+                     var table=$('#data-table-fixed-header').DataTable();
+                     table.ajax.url("{{ url('customermobile/getdata')}}").load();
+                   }
+                 });
+               
+               
+             } else {
+               
+             }
+           });
+           
+         }
+
+        function open_user(users_id){
+           
+           swal({
+             title: "Buka / Aktifkan Akun ?",
+             text: "proses aktifkan akun customer",
+             type: "info",
+             icon: "info",
+             showCancelButton: true,
+             align:"center",
+             confirmButtonClass: "btn-danger",
+             confirmButtonText: "Yes, delete it!",
+             closeOnConfirm: false
+           }).then((willDelete) => {
+             if (willDelete) {
+                 $.ajax({
+                   type: 'GET',
+                   url: "{{url('customermobile/open_user')}}",
+                   data: "users_id="+users_id,
+                   success: function(msg){
+                     swal("Success! berhasil dicreate!", {
+                       icon: "success",
+                     });
+                     var table=$('#data-table-fixed-header').DataTable();
+                     table.ajax.url("{{ url('customermobile/getdata')}}").load();
+                   }
+                 });
+               
+               
+             } else {
+               
+             }
+           });
+           
+         }
+    </script>
 @endpush
