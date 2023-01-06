@@ -63,6 +63,19 @@ function count_barang_even($Kd_JenisBarang){
     
     return $data;
 }
+function kode_customer(){
+    
+    $cek=App\Models\Mobilecustomer::where('tahun',date('y'))->count();
+    if($cek>0){
+        $mst=App\Models\Mobilecustomer::where('tahun',date('y'))->orderBy('kode_customer','Desc')->firstOrfail();
+        $urutan = (int) substr($mst['kode_customer'], 2, 5);
+        $urutan++;
+        $nomor=date('Y').sprintf("%05s",  $urutan);
+    }else{
+        $nomor=date('Y').sprintf("%05s",  1);
+    }
+    return $nomor;
+}
 function persen_barang_even($Kd_JenisBarang){
     $der=App\Models\Barang::where('Kd_JenisBarang',$Kd_JenisBarang)->count();
     $data=round(($der/count_barang())*100);

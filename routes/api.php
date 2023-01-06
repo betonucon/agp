@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\CustomerController;
 |
 */
 Route::post('login', [AuthController::class, 'login']);
+Route::post('customer/login', [AuthController::class, 'login_customer']);
 Route::post('cek-login', [AuthController::class, 'cek_login']);
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('logout', [AuthController::class, 'logout']);
