@@ -48,4 +48,23 @@ class CustomerController extends BaseController
         return $this->sendResponse($success, 'success');
     }
 
+    public function customer_first(Request $request)
+    {
+       
+        $query=Customer::query();
+
+        $o=$query->where('KD_Customer',$request->KD_Customer)->first();
+        $cek=$query->count();
+        $success=[];
+        $success['KD_Customer'] =$o->KD_Customer;
+        $success['Perusahaan'] = $o->Perusahaan;
+        $success['Alamat'] = $o->Alamat;
+        $success['Kota'] = $o->Kota; 
+            
+        
+        
+
+        return $this->sendResponse($success, 'success');
+    }
+
 }

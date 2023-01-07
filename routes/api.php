@@ -31,7 +31,8 @@ Route::group(['prefix' => 'master'],function(){
     Route::get('/kategori_produk', [MasterController::class, 'kategori_produk']);
     Route::get('/kota/{Kd_Propinsi?}', [MasterController::class, 'kota']);
 });
-Route::group(['prefix' => 'customer','middleware'    => 'auth:sanctum'],function(){
-    Route::get('/', [CustomerController::class, 'index']);
+Route::group(['middleware'    => 'auth:sanctum'],function(){
+    Route::get('/customer', [CustomerController::class, 'index']);
+    Route::get('/customer_first', [CustomerController::class, 'customer_first']);
 });
 Route::post('register', [AuthController::class, 'register']);
