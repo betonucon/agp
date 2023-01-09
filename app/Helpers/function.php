@@ -21,6 +21,9 @@ function tanggal_indo_lengkap($date){
 function tanggal_indo($date){
    return date('d M,Y',strtotime($date));
 }
+function no_decimal($nilai){
+   return number_format($nilai, 0, '.', '');
+}
 function jam($date=null){
    if($date==""){
       return null;

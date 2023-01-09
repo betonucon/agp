@@ -87,15 +87,15 @@
                         <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli)}}" placeholder="Ketik...">
                       </div>
                     </div>
-                    @if($data->Satuan2!="")
+                    @if($data->Satuan4!="")
                       <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Harga {{$data->Satuan2}}</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Harga {{$data->Satuan4}}</label>
 
                         <div class="col-sm-3">
-                          <input type="text" name="Isi2" class="form-control input-sm" readonly value="{{$data->Isi2}} @if($data->Satuan3!='') X {{$data->Isi3}} @endif " placeholder="Ketik...">
+                          <input type="text" name="Isi3" class="form-control input-sm" readonly value="{{$data->Isi4}}" placeholder="Ketik...">
                         </div>
                         <div class="col-sm-5">
-                          <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli)}}" placeholder="Ketik...">
+                          <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli/$data->Isi4)}}" placeholder="Ketik...">
                         </div>
                       </div>
                     @endif
@@ -111,6 +111,19 @@
                         </div>
                       </div>
                     @endif
+                    @if($data->Satuan2!="")
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Harga {{$data->Satuan2}}</label>
+
+                        <div class="col-sm-3">
+                          <input type="text" name="Isi2" class="form-control input-sm" readonly value="{{$data->Isi2}} @if($data->Satuan3!='') X {{$data->Isi3}} @endif " placeholder="Ketik...">
+                        </div>
+                        <div class="col-sm-5">
+                          <input type="text" name="Harga_Beli" class="form-control input-sm" readonly value="{{uang($data->Harga_Beli)}}" placeholder="Ketik...">
+                        </div>
+                      </div>
+                    @endif
+                    
                     
                   </div>
                   <!-- /.box-body -->

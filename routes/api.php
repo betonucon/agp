@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\SalesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,5 +35,8 @@ Route::group(['prefix' => 'master'],function(){
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer_first', [CustomerController::class, 'customer_first']);
+
+
+    Route::get('/jadwal_sales', [SalesController::class, 'jadwal_sales']);
 });
 Route::post('register', [AuthController::class, 'register']);
