@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kecamatan extends Model
+class Testapi extends Model
 {
     use HasFactory;
-    protected $table = 'MS_Kecamatan';
-    protected $guarded = [];
+    protected $table = 'test_api';
+    protected $guarded = ['id'];
     public $timestamps = false;
     // function mjabatan(){
     //     return $this->belongsTo('App\Models\Jabatan','jabatan_id','id');

@@ -27,10 +27,13 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::group(['prefix' => 'barang','middleware'    => 'auth:sanctum'],function(){
     Route::get('/', [ProdukController::class, 'index']);
 });
+Route::post('/save_data_api', [MasterController::class, 'save_data_api']);
+
 Route::group(['prefix' => 'master'],function(){
     Route::get('/provinsi', [MasterController::class, 'provinsi']);
     Route::get('/kategori_produk', [MasterController::class, 'kategori_produk']);
     Route::get('/kota/{Kd_Propinsi?}', [MasterController::class, 'kota']);
+    Route::get('/kecamatan/{Kd_Kabupaten?}', [MasterController::class, 'kecamatan']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer', [CustomerController::class, 'index']);

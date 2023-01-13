@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kecamatan extends Model
+class Kelurahan extends Model
 {
     use HasFactory;
-    protected $table = 'MS_Kecamatan';
+    protected $table = 'MS_Kelurahan';
     protected $guarded = [];
     public $timestamps = false;
     // function mjabatan(){

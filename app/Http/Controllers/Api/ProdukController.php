@@ -37,7 +37,12 @@ class ProdukController extends BaseController
                 $cl['KD_Barang'] =$o->KD_Barang;
                 $cl['Nama_Barang'] = $o->Nama_Barang;
                 $cl['Nama_Divisi'] = $o->Nama_Divisi;
+                $cl['Satuan_aktif'] = $o->hargamunculsatuanke;
                 $cl['Satuan'] = $o['Satuan'.$o->hargamunculsatuanke];
+                $cl['Satuan1'] = $o->Satuan1;
+                $cl['Satuan2'] = $o->Satuan2;
+                $cl['Satuan3'] = $o->Satuan3;
+                $cl['Satuan4'] = $o->Satuan4;
                 
                 if($o->thumbnail!=null){
                     $cl['thumbnail'] = url_plug().'/_file_foto/'.$o->thumbnail;
