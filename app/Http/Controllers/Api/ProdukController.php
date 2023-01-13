@@ -39,6 +39,7 @@ class ProdukController extends BaseController
                 $cl['Nama_Divisi'] = $o->Nama_Divisi;
                 $cl['Satuan_aktif'] = $o->hargamunculsatuanke;
                 $cl['Satuan'] = $o['Satuan'.$o->hargamunculsatuanke];
+                $cl['harga'] = $o['harga_ke'.$o->hargamunculsatuanke];
                 $cl['Satuan1'] = $o->Satuan1;
                 $cl['Satuan2'] = $o->Satuan2;
                 $cl['Satuan3'] = $o->Satuan3;
