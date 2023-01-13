@@ -36,6 +36,7 @@ class SalesController extends BaseController
                 $cl=[];
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['Alamat'] = $o->Alamat;
+                $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Nama_Kunjungan'] = $o->Nama_Kunjungan;
                 $cl['limit'] = no_decimal($o->Limit_Value);
                 $cl['limit_uang'] = uang($o->Limit_Value);
