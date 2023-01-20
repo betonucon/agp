@@ -170,6 +170,11 @@ function tanggal_indo_full($tgl){
     $data=date('d/m/Y H:i:s',strtotime($tgl));
     return $data;
 }
+function prev_tanggal($tgl,$param){
+   $tanggal=$tgl;
+   $data    =date('Y-m-d 00:00:00.000', strtotime("$param days", strtotime($tanggal)));
+   return $data;
+}
 
 function penomoran($kode){
     
