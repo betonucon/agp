@@ -42,5 +42,6 @@ Route::group(['middleware'    => 'auth:sanctum'],function(){
 
     Route::get('/jadwal_sales', [SalesController::class, 'jadwal_sales']);
     Route::get('/jadwal_sales_prev', [SalesController::class, 'jadwal_sales_prev']);
+    Route::get('/jadwal_sales_riwayat', [SalesController::class, 'jadwal_sales_riwayat']);
 });
 Route::post('register', [AuthController::class, 'register']);
