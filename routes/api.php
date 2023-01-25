@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SalesController;
+use App\Http\Controllers\Api\SoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,11 +36,17 @@ Route::group(['prefix' => 'master'],function(){
     Route::get('/kota/{Kd_Propinsi?}', [MasterController::class, 'kota']);
     Route::get('/kecamatan/{Kd_Kabupaten?}', [MasterController::class, 'kecamatan']);
 });
+Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
+    Route::post('/create', [SoController::class, 'create']);
+});
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer_first', [CustomerController::class, 'customer_first']);
 
 
+    Route::get('/jalur_sales', [SalesController::class, 'jalur_sales']);
+    Route::get('/jalur_sales_prev', [SalesController::class, 'jalur_sales_prev']);
+    Route::get('/jalur_sales_riwayat', [SalesController::class, 'jalur_sales_riwayat']);
     Route::get('/jadwal_sales', [SalesController::class, 'jadwal_sales']);
     Route::get('/jadwal_sales_prev', [SalesController::class, 'jadwal_sales_prev']);
     Route::get('/jadwal_sales_riwayat', [SalesController::class, 'jadwal_sales_riwayat']);

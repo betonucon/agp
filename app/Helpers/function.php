@@ -170,24 +170,34 @@ function tanggal_indo_full($tgl){
     $data=date('d/m/Y H:i:s',strtotime($tgl));
     return $data;
 }
+function tanggal_indo_only($tgl){
+    $data=date('Y-m-d',strtotime($tgl));
+    return $data;
+}
 function prev_tanggal($tgl,$param){
    $tanggal=$tgl;
    $data    =date('Y-m-d 00:00:00.000', strtotime("$param days", strtotime($tanggal)));
    return $data;
 }
-
-function penomoran($kode){
-    
-    // $cek=App\Models\Produk::where('kode_kategori',$kode)->count();
-    // if($cek>0){
-    //     $mst=App\Models\Produk::where('kode_kategori',$kode)->orderBy('kode_pr','Desc')->firstOrfail();
-    //     $urutan = (int) substr($mst['kode_pr'], 1, 4);
-    //     $urutan++;
-    //     $nomor=$nomor=$kode.sprintf("%04s",  $urutan);
-    // }else{
-    //     $nomor=$nomor=$kode.sprintf("%04s",  1);
-    // }
-    // return $nomor;
+function tanggal_tempo($param){
+   $tanggal=date('Y-m-d');
+   $data    =date('Y-m-d 00:00:00.000', strtotime("$param days", strtotime($tanggal)));
+   return $data;
 }
+
+function penomoran_so(){
+    
+    $cek=App\Models\Soheader::count();
+    if($cek>0){
+        $mst=App\Models\Soheader::orderBy('KD_Transaksi','Desc')->firstOrfail();
+        $urutan = (int) substr($mst['KD_Transaksi'], 4, 7);
+        $urutan++;
+        $nomor='SO-L'.sprintf("%07s",  $urutan).'.GP';
+    }else{
+        $nomor='SO-L'.sprintf("%07s",  1);
+    }
+    return $nomor;
+}
+
 
 ?>
