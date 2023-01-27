@@ -41,6 +41,9 @@ Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::get('/keranjang', [SoController::class, 'keranjang']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
+    Route::get('/tagihan', [SalesController::class, 'tagihan']);
+});
+Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer_first', [CustomerController::class, 'customer_first']);
 

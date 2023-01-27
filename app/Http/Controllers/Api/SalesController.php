@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\User;
 use App\Models\Barang;
 use App\Models\Viewjadwalsales;
+use App\Models\Viewtagihan;
 use App\Models\Viewjalursales;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
@@ -238,6 +239,47 @@ class SalesController extends BaseController
                 $cl['limit'] = no_decimal($o->Limit_Value);
                 $cl['limit_uang'] = uang($o->Limit_Value);
                 $cl['Tanggal'] = tanggal_indo($o->tgl_register);
+                
+                $sub=$cl;  
+                
+            $col[]=$sub;
+        }
+        $success['total_page'] =  ceil($cek/10);
+        $success['total_item'] =  $cek;
+        $success['current_page'] =  $page;
+        $success['result'] =  $col;
+        
+        
+
+        return $this->sendResponse($success, 'success');
+    }
+    public function tagihan(Request $request)
+    {
+        $akses = $request->user(); 
+        if($request->page==""){
+            $page=1;
+        }else{
+            $page=$request->page;
+        }
+        $gg1=prev_tanggal(date('Y-m-d'),'-1');
+        $gg2=prev_tanggal(date('Y-m-d'),'-8');
+        $query=Viewtagihan::query();
+        $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->whereDate('Due_Date',$request->tanggal)->orderBy('Due_Date','Desc')->paginate(20);
+        $cek=$query->count();
+        
+        $col=[];
+        foreach($get as $o){
+           $sub=[];
+                $cl=[];
+                $cl['Tgl_Transaksi'] =tanggal_indo($o->Tgl_Transaksi);
+                $cl['KD_Customer'] = $o->KD_Customer;
+                $cl['Perusahaan'] = $o->Perusahaan;
+                $cl['KD_Salesman_order'] = $o->KD_Salesman_order;
+                $cl['Due_Date'] = tanggal_indo($o->Due_Date);
+                $cl['KD_Salesman'] = $o->KD_Salesman;
+                $cl['Jml_Tagihan'] = no_decimal($o->Jml_Tagihan);
+                $cl['Jml_Sisa'] = no_decimal($o->Jml_Sisa);
+                $cl['jumlahtagih'] = no_decimal($o->jumlahtagih);
                 
                 $sub=$cl;  
                 
