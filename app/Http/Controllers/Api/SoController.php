@@ -52,7 +52,7 @@ class SoController extends BaseController
                     }
                     return $this->sendResponseerror($error);
             }else{
-                echo $request->KD_Barang;
+                // echo $request->KD_Barang;
                 // $barang=Viewbarang::where('KD_Barang',$request->KD_Barang)->first();
                 // $terms=Viewjadwalsales::where('NoU',$request->NoU)->first();
                 // $customer=Customer::where('KD_Customer',$terms->KD_Customer)->first();
@@ -103,8 +103,8 @@ class SoController extends BaseController
                 //     'Qtyfree'=>$Qtyfree,
                 //     'total'=>($harga*$request->qty),
                 // ]);
-                // $success=true;
-                // return $this->sendResponse($success, 'success');
+                $success=true;
+                return $this->sendResponse($request->KD_Barang, 'success');
             }
         } catch (\Throwable $th) {
             return $this->sendResponseerror($th->getMessage(), $th->getCode());
