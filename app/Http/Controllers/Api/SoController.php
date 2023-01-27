@@ -99,7 +99,8 @@ class SoController extends BaseController
                 'Qtyfree'=>$Qtyfree,
                 'total'=>($harga*$request->qty),
             ]);
-            echo $harga;
+            $success='true';
+            return $this->sendResponse($success, 'success');
         }
         
     }
