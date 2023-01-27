@@ -47,7 +47,7 @@ Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/jalur_sales', [SalesController::class, 'jalur_sales']);
     Route::get('/jalur_sales_prev', [SalesController::class, 'jalur_sales_prev']);
     Route::get('/jalur_sales_riwayat', [SalesController::class, 'jalur_sales_riwayat']);
-    Route::get('/jadwal_sales', [SalesController::class, 'jadwal_sales']);
+    Route::get('/jadwal_sales/{id?}', [SalesController::class, 'jadwal_sales']);
     Route::get('/jadwal_sales_prev', [SalesController::class, 'jadwal_sales_prev']);
     Route::get('/jadwal_sales_riwayat', [SalesController::class, 'jadwal_sales_riwayat']);
 });
