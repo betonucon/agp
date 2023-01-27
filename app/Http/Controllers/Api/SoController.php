@@ -21,8 +21,9 @@ class SoController extends BaseController
 {
     public function create(Request $request,$tahun=null)
     {
+        error_reporting(0);
         try {
-            error_reporting(0);
+            
             $auth = $request->user(); 
             $rules = [];
             $messages = [];
