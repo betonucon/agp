@@ -105,7 +105,7 @@ class AuthController extends BaseController
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role_id' => 3])){ 
             $auth = Auth::user(); 
             $user = Viewloginsales::where('username',$auth->username)->first(); 
-            $hapus=Accesstoken::where('tokenable_id',$user->id)->delete();
+            // $hapus=Accesstoken::where('tokenable_id',$user->id)->delete();
             
                 if($auth->active_status==1){
 
