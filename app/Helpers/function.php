@@ -194,7 +194,7 @@ function penomoran_so(){
         $urutan++;
         $nomor='SO-L'.sprintf("%07s",  $urutan).'.GP';
     }else{
-        $nomor='SO-L'.sprintf("%07s",  1);
+        $nomor='SO-L'.sprintf("%07s",  1).'.GP';
     }
     return $nomor;
 }
