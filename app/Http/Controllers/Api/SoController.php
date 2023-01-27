@@ -96,6 +96,7 @@ class SoController extends BaseController
                 ],[
                     'qty'.$barang->hargamunculsatuanke=>$request->qty,
                     'Disc'.$barang->hargamunculsatuanke=>$request->discon,
+                    'discon'=>$discon,
                     'Satuan'=>$request->Satuan,
                     'Harga_Satuan'=>$harga,
                     'Qty'=>$request->qty,
@@ -130,32 +131,12 @@ class SoController extends BaseController
                 $cl=[];
                 $cl['KD_Barang'] =$o->KD_Barang;
                 $cl['Nama_Barang'] = $o->Nama_Barang;
-                $cl['Nama_Divisi'] = $o->Nama_Divisi;
-                $cl['Satuan_aktif'] = $o->hargamunculsatuanke;
-                $cl['Satuan'] = $o['Satuan'.$o->hargamunculsatuanke];
-                $cl['harga'] = no_decimal($o['harga_ke'.$o->hargamunculsatuanke]);
-                $cl['Satuan1'] = $o->Satuan1;
-                $cl['Satuan2'] = $o->Satuan2;
-                $cl['Satuan3'] = $o->Satuan3;
-                $cl['Satuan4'] = $o->Satuan4;
+                $cl['Satuan'] = $o->Satuan;
+                $cl['discon'] = $o->discon;
+                $cl['Qty'] = $o->Qty;
+                $cl['total'] = $o->total;
                 
-                if($o->thumbnail!=null){
-                    $cl['thumbnail'] = url_plug().'/_file_foto/'.$o->thumbnail;
-                }else{
-                    $cl['thumbnail'] = url_plug().'/_file_foto/example.png';
-                }
-                $foto=[];
-                    if($o->jumlah_foto>0){
-                        foreach(get_fotobarang($o->KD_Barang) as $no=>$ft){
-                            $subfoto['foto']=url_plug().'/_file_foto/'.$ft->foto;
-                            $foto[]=$subfoto;
-                        }
-                    }else{
-                        $subfoto['foto']=url_plug().'/_file_foto/example.png';
-                        $foto[]=$subfoto;
-                    }
-                    
-                $cl['detail_foto'] = $foto;
+                
                 $sub=$cl;  
                 
             $col[]=$sub;

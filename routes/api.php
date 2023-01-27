@@ -38,6 +38,7 @@ Route::group(['prefix' => 'master'],function(){
 });
 Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::post('/create', [SoController::class, 'create']);
+    Route::get('/keranjang', [SoController::class, 'keranjang']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer', [CustomerController::class, 'index']);
