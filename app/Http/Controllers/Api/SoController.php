@@ -89,7 +89,7 @@ class SoController extends BaseController
                     $discon=$request->discon;
                 }
                 $harga=($barang['harga_ke4']-$discon);
-                $barang=Sodetail::UpdateOrcreate([
+                $save2=Sodetail::UpdateOrcreate([
                     'NoU'=>$request->NoU,
                     'KD_Barang'=>$request->KD_Barang,
                     'kd_transaksi'=>$KD_Transaksi,
