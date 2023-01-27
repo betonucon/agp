@@ -62,6 +62,8 @@ class SoController extends BaseController
             }
             $save=Soheader::UpdateOrcreate([
                 'KD_Customer'=>$terms->KD_Customer,
+                'tanggal'=>date('Y-m-d'),
+                
                 'status_data'=>0,
             ],[
                 'KD_Salesman'=>$auth->username,
@@ -71,7 +73,7 @@ class SoController extends BaseController
                 'kd_divisi'=>$terms->kd_divisi,
                 'Customer'=>$customer->Perusahaan,
                 'Customer'=>$customer->Perusahaan,
-                'Tanggal'=>date('Y-m-d H:i:s'),
+                'waktu'=>date('Y-m-d H:i:s'),
             ]);
 
             if($request->qty_free==null || $request->qty_free=='0'){
@@ -79,15 +81,25 @@ class SoController extends BaseController
             }else{
                 $Qtyfree=$request->qty_free;
             }
+            if($request->discon==null || $request->discon=='0'){
+                $discon=0;
+            }else{
+                $discon=$request->discon;
+            }
+            $harga=($barang['harga_ke4']-$discon);
             $barang=Sodetail::UpdateOrcreate([
                 'NoU'=>$request->NoU,
                 'KD_Barang'=>$request->KD_Barang,
                 'kd_transaksi'=>$KD_Transaksi,
             ],[
                 'qty'.$barang->hargamunculsatuanke=>$request->qty,
+                'Disc'.$barang->hargamunculsatuanke=>$request->discon,
+                'Harga_Satuan'=>$harga,
                 'Qty'=>$request->qty,
                 'Qtyfree'=>$Qtyfree,
+                'total'=>($harga*$request->qty),
             ]);
+            echo $harga;
         }
         
     }

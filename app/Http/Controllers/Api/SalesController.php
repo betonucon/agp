@@ -24,7 +24,7 @@ class SalesController extends BaseController
             $page=$request->page;
         }
         $query=Viewjalursales::query();
-        $get=$query->where('KD_Salesman',$akses->username)->whereDate('tgl_register',$request->tanggal)->orderBy('tgl_register','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->whereDate('tgl_register',date('Y-m-d H'))->orderBy('tgl_register','Desc')->paginate(20);
         $cek=$query->count();
         
         $col=[];

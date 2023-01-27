@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\User;
-use App\Models\Customer;
+use App\Models\ViewCustomer;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ class CustomerController extends BaseController
         }else{
             $page=$request->page;
         }
-        $query=Customer::query();
+        $query=ViewCustomer::query();
 
         $get=$query->orderBy('Perusahaan','Asc')->paginate(20);
         $cek=$query->count();
@@ -31,7 +31,9 @@ class CustomerController extends BaseController
            $sub=[];
                 $cl=[];
                 $cl['KD_Customer'] =$o->KD_Customer;
+                $cl['KD_JalurPengiriman'] =$o->KD_JalurPengiriman;
                 $cl['Perusahaan'] = $o->Perusahaan;
+                $cl['Nama_JalurPengiriman'] = $o->Nama_JalurPengiriman;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['Kota'] = $o->Kota;
                 $sub=$cl;  
