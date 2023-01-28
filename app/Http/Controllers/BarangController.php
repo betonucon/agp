@@ -60,7 +60,7 @@ class BarangController extends Controller
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('uang_Harga_Beli', function ($row) {
-                $btn=uang_pembulat($row->Harga_Beli);
+                $btn=no_decimal($row['harga_ke'.$row->hargamunculsatuanke]);
                 return $btn;
             })
             ->addColumn('count_foto', function ($row) {
