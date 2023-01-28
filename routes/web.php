@@ -39,10 +39,16 @@ Route::group(['middleware' => 'auth'], function() {
     */
     Route::get('/logout-perform', [LogoutController::class, 'perform'])->name('logout.perform');
  });
+Route::group(['prefix' => 'jadwal','middleware'    => 'auth'],function(){
+    Route::get('/hariini',[SalesController::class, 'index_jadwalhariini']);
+    Route::get('/kemarin',[SalesController::class, 'index_kemarin']);
+});
 Route::group(['prefix' => 'sales','middleware'    => 'auth'],function(){
     Route::get('/',[SalesController::class, 'index']);
     Route::get('/view',[SalesController::class, 'view_data']);
     Route::get('/getdata',[SalesController::class, 'get_data']);
+    Route::get('/getdata-hariini',[SalesController::class, 'get_data_hariini']);
+    Route::get('/getdata-kemarin',[SalesController::class, 'get_data_kemarin']);
     Route::get('/tutup_user',[SalesController::class, 'tutup_user']);
     Route::get('/open_user',[SalesController::class, 'open_user']);
     Route::get('/buatuser',[SalesController::class, 'buat_user']);

@@ -15,9 +15,21 @@
             <li><a href="{{url('sales')}}">&nbsp;<i class="fa  fa-sort-down"></i> Sales</a></li>
           </ul>
         </li>
+        <li class="treeview @if(Request::is('jadwal/*')==1 || Request::is('jadwal')==1 ) menu-open @endif">
+          <a href="#">
+            <i class="fa fa-calendar-times-o text-white"></i> <span>Jadwal Sales</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display:@if(Request::is('jadwal/*')==1 || Request::is('jadwal')==1) block @endif">
+            <li><a href="{{url('jadwal/hariini')}}">&nbsp;<i class="fa  fa-sort-down"></i> Hari Ini</a></li>
+            <li><a href="{{url('jadwal/kemarin')}}">&nbsp;<i class="fa  fa-sort-down"></i> Kemarin</a></li>
+          </ul>
+        </li>
         <li class="treeview @if(Request::is('salesorder/*')==1 || Request::is('salesorder')==1 ) menu-open @endif">
           <a href="#">
-            <i class="fa fa-database text-white"></i> <span>Sales Order (SO)</span>
+            <i class="fa fa-cubes text-white"></i> <span>Sales Order (SO)</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
