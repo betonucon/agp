@@ -154,6 +154,7 @@ class SalesController extends BaseController
                 $cl['NoU'] = $o->NoU;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['Tempo'] = $o->Term;
+                $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Nama_Kunjungan'] = $o->Nama_Kunjungan;
                 $cl['limit'] = no_decimal($o->Limit_Value);
@@ -196,6 +197,7 @@ class SalesController extends BaseController
                 $cl['Alamat'] = $o->Alamat;
                 $cl['NoU'] = $o->NoU;
                 $cl['Tempo'] = $o->Term;
+                $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Nama_Kunjungan'] = $o->Nama_Kunjungan;
                 $cl['limit'] = no_decimal($o->Limit_Value);
@@ -237,6 +239,7 @@ class SalesController extends BaseController
                 $cl['NoU'] = $o->NoU;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['Tempo'] = $o->Term;
+                $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Nama_Kunjungan'] = $o->Nama_Kunjungan;
                 $cl['limit'] = no_decimal($o->Limit_Value);
