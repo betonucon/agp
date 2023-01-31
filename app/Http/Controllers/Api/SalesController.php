@@ -153,6 +153,7 @@ class SalesController extends BaseController
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['NoU'] = $o->NoU;
                 $cl['Alamat'] = $o->Alamat;
+                $cl['status_absen'] = $o->status_absen;
                 $cl['Tempo'] = $o->Term;
                 $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
@@ -196,6 +197,7 @@ class SalesController extends BaseController
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['NoU'] = $o->NoU;
+                $cl['status_absen'] = $o->status_absen;
                 $cl['Tempo'] = $o->Term;
                 $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
@@ -237,6 +239,7 @@ class SalesController extends BaseController
                 $cl=[];
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['NoU'] = $o->NoU;
+                $cl['status_absen'] = $o->status_absen;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['Tempo'] = $o->Term;
                 $cl['Telepon'] = $o->Telepon1;
@@ -259,6 +262,44 @@ class SalesController extends BaseController
 
         return $this->sendResponse($success, 'success');
     }
+
+    public function absen(Request $request)
+    {
+        error_reporting(0);
+        $rules = [];
+        $messages = [];
+        
+        $rules['NoU']= 'required';
+        $messages['NoU.required']= 'Lengkapi kolom NoU';
+
+        $rules['lat']= 'required';
+        $messages['lat.required']= 'Lengkapi kolom lat';
+        
+        $rules['lon']= 'required';
+        $messages['lon.required']= 'Lengkapi kolom lon';
+
+        $rules['foto']= 'required';
+        $messages['foto.required']= 'Lengkapi foto';
+        
+       
+        $validator = Validator::make($request->all(), $rules, $messages);
+        $val=$validator->Errors();
+
+
+        if ($validator->fails()) {
+            echo'<div class="nitof"><b>Oops Error !</b><br><div class="isi-nitof">';
+                foreach(parsing_validator($val) as $value){
+                    
+                    foreach($value as $isi){
+                        echo'-&nbsp;'.$isi.'<br>';
+                    }
+                }
+            echo'</div></div>';
+        }else{
+
+        }
+    }
+
     public function tagihan(Request $request)
     {
         $akses = $request->user(); 
