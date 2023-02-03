@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\Viewjadwalsales;
 use App\Models\Viewtagihan;
 use App\Models\Viewjalursales;
+use App\Models\Viewmedia;
 use App\Models\Mediasales;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
@@ -373,6 +374,45 @@ class SalesController extends BaseController
         return $this->sendResponse($success, 'success');
     }
 
-    
+    public function media(Request $request)
+    {
+        $akses = $request->user(); 
+        if($request->page==""){
+            $page=1;
+        }else{
+            $page=$request->page;
+        }
+        
+        $query=Viewmedia::query();
+        // if($request->Nama_Barang!=""){
+        //     $get=$query->where('Nama_Barang',$request->Nama_Barang);
+        // }
+        $get=$query->where('KD_Salesman',$akses->username)->orderBy('tgl_register','Desc')->paginate(20);
+        $cek=$query->count();
+        
+        $col=[];
+        foreach($get as $o){
+           $sub=[];
+                $cl=[];
+                $cl['Perusahaan'] =$o->Perusahaan;
+                $cl['NoU'] = $o->NoU;
+                $cl['foto'] = url_plug().'/_file_absen/'.$o->foto;
+                $cl['waktu_absen'] = $o->created_at;
+                $cl['KD_Salesman'] = $o->KD_Salesman;
+                $cl['KD_Customer'] = $o->KD_Customer;
+                
+                $sub=$cl;  
+                
+            $col[]=$sub;
+        }
+        $success['total_page'] =  ceil($cek/10);
+        $success['total_item'] =  $cek;
+        $success['current_page'] =  $page;
+        $success['result'] =  $col;
+        
+        
+
+        return $this->sendResponse($success, 'success');
+    }
 
 }
