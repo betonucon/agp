@@ -154,7 +154,7 @@ class SalesController extends BaseController
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['NoU'] = $o->NoU;
                 $cl['Alamat'] = $o->Alamat;
-                $cl['foto'] = url_plug().'/file_absen/'.$o->foto;
+                $cl['foto'] = url_plug().'/_file_absen/'.$o->foto;
                 $cl['status_absen'] = $o->status_absen;
                 $cl['Tempo'] = $o->Term;
                 $cl['Telepon'] = $o->Telepon1;
@@ -201,7 +201,7 @@ class SalesController extends BaseController
                 $cl['NoU'] = $o->NoU;
                 $cl['status_absen'] = $o->status_absen;
                 $cl['Tempo'] = $o->Term;
-                $cl['foto'] = url_plug().'/file_absen/'.$o->foto;
+                $cl['foto'] = url_plug().'/_file_absen/'.$o->foto;
                 $cl['Telepon'] = $o->Telepon1;
                 $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Nama_Kunjungan'] = $o->Nama_Kunjungan;
@@ -243,7 +243,7 @@ class SalesController extends BaseController
                 $cl['Perusahaan'] =$o->Perusahaan;
                 $cl['NoU'] = $o->NoU;
                 $cl['status_absen'] = $o->status_absen;
-                $cl['foto'] = url_plug().'/file_absen/'.$o->foto;
+                $cl['foto'] = url_plug().'/_file_absen/'.$o->foto;
                 $cl['Alamat'] = $o->Alamat;
                 $cl['Tempo'] = $o->Term;
                 $cl['Telepon'] = $o->Telepon1;
