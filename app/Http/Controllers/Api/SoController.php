@@ -216,8 +216,11 @@ class SoController extends BaseController
         
         $query=Vieworder::query();
         $get=$query->where('NoU',$request->NoU)->orderBy('id','Asc')->paginate(20);
+        $sum=$query->where('NoU',$request->NoU)->sum('total');
         $cek=$query->count();
-        $success['Nou'] =  ceil($cek/10);
+        $success['total_page'] =  ceil($cek/10);
+        $success['Nou'] =  $request->NoU;
+        $success['total_bayar'] =  no_decimal($sum);
         $success['total_item'] =  $cek;
         $success['current_page'] =  $page;
         $col=[];
