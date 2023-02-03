@@ -216,7 +216,6 @@ class SoController extends BaseController
         
         $query=Vieworder::query();
         $get=$query->where('NoU',$request->NoU)->orderBy('id','Asc')->paginate(20);
-        $get=$query->where('NoU',$request->NoU)->orderBy('id','Asc')->paginate(20);
         $cek=$query->count();
         $success['Nou'] =  ceil($cek/10);
         $success['total_item'] =  $cek;
