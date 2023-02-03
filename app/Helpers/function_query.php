@@ -16,6 +16,15 @@ function get_sales(){
     $data=App\Models\Viewsales::orderBy('KD_Salesman','Asc')->get();
     return $data;
 }
+function total_absen($KD_Salesman,$tanggal){
+    $data  = array_column(
+        App\Models\Jadwalsales::where('KD_Salesman',$KD_Salesman)
+        ->get()
+        ->toArray(),'NoU'
+     );
+     $cek=App\Models\Mediasales::whereIn('Nou',$data)->count();
+    return $cek;
+}
 function get_statusapprove(){
     $data=App\Models\Statusapprove::orderBy('id','Asc')->get();
     return $data;

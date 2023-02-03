@@ -143,7 +143,7 @@ class SalesController extends BaseController
         // if($request->Nama_Barang!=""){
         //     $get=$query->where('Nama_Barang',$request->Nama_Barang);
         // }
-        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->whereDate('tgl_register',$request->tanggal)->orderBy('tgl_register','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->whereDate('tgl_register',date('Y-m-d'))->orderBy('tgl_register','Desc')->paginate(20);
         $cek=$query->count();
         
         $col=[];

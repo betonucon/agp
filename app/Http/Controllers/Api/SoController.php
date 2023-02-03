@@ -123,8 +123,11 @@ class SoController extends BaseController
         
         $query=Vieworder::query();
         $get=$query->where('NoU',$request->NoU)->orderBy('id','Asc')->paginate(20);
+        $get=$query->where('NoU',$request->NoU)->orderBy('id','Asc')->paginate(20);
         $cek=$query->count();
-        
+        $success['Nou'] =  ceil($cek/10);
+        $success['total_item'] =  $cek;
+        $success['current_page'] =  $page;
         $col=[];
         foreach($get as $o){
            $sub=[];
@@ -141,10 +144,8 @@ class SoController extends BaseController
                 
             $col[]=$sub;
         }
-        $success['total_page'] =  ceil($cek/10);
-        $success['total_item'] =  $cek;
-        $success['current_page'] =  $page;
-        $success['result'] =  $col;
+        
+        $success['item'] =  $col;
         
         
 

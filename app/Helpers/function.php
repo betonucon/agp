@@ -18,6 +18,9 @@ function pimpinan(){
 function tanggal_indo_lengkap($date){
    return date('d-m-Y H:i:s',strtotime($date));
 }
+function tanggal_only($date){
+   return date('Y-m-d',strtotime($date));
+}
 function tanggal_indo($date){
    return date('d M,Y',strtotime($date));
 }

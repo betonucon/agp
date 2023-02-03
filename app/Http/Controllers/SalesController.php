@@ -137,6 +137,9 @@ class SalesController extends Controller
                 $btn=$row->total.' Toko';
                 return $btn;
             })
+            ->addColumn('total_absen', function ($row) {
+                return total_absen($row->KD_Salesman,tanggal_only($row->tgl_register));
+            })
             ->addColumn('action', function ($row) {
                 $btn='
                     <div class="btn-group">

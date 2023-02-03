@@ -47,6 +47,7 @@
                         { data: 'Nama_JalurPengiriman' },
                         { data: 'tanggal' },
                         { data: 'total_toko' },
+                        { data: 'total_absen' },
                         
                       ],
                       
@@ -153,6 +154,7 @@
                             <th>Nama Jalur Pengiriman</th>
                             <th width="11%">Tanggal</th>
                             <th width="11%">Jumlah</th>
+                            <th width="11%">Absen</th>
                         </tr>
                     </thead>
                     
