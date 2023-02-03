@@ -403,6 +403,7 @@ class SalesController extends BaseController
                 $cl['waktu_absen'] = $o->created_at;
                 $cl['KD_Salesman'] = $o->KD_Salesman;
                 $cl['KD_Customer'] = $o->KD_Customer;
+                $cl['tanggal_tagih'] = tanggal_indo($o->tgl_register);
                 
                 $sub=$cl;  
                 
