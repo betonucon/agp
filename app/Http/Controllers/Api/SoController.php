@@ -228,7 +228,7 @@ class SoController extends BaseController
                 $cl['Nama_Barang'] = $o->Nama_Barang;
                 $cl['Satuan'] = $o->Satuan;
                 $cl['discon'] = $o->discon;
-                $cl['harga_satuan'] = $o->Harga_Satuan;
+                $cl['harga_satuan'] = no_decimal($o->Harga_Satuan);
                 $cl['Qty'] = $o->Qty;
                 $cl['total'] = $o->total;
                 
