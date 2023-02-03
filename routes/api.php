@@ -48,6 +48,7 @@ Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/customer_first', [CustomerController::class, 'customer_first']);
 
 
+    Route::post('/absen', [SalesController::class, 'absen']);
     Route::get('/jalur_sales', [SalesController::class, 'jalur_sales']);
     Route::get('/jalur_sales_prev', [SalesController::class, 'jalur_sales_prev']);
     Route::get('/jalur_sales_riwayat', [SalesController::class, 'jalur_sales_riwayat']);

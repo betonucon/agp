@@ -58,6 +58,10 @@ return [
             'driver' => 'local',
             'root'   => public_path() . '/_file_foto',
         ],
+        'public_absen' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/_file_absen',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

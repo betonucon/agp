@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\Viewjadwalsales;
 use App\Models\Viewtagihan;
 use App\Models\Viewjalursales;
+use App\Models\Mediasales;
 use App\Models\Accesstoken;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -266,6 +267,7 @@ class SalesController extends BaseController
     public function absen(Request $request)
     {
         error_reporting(0);
+        $akses = $request->user(); 
         $rules = [];
         $messages = [];
         
@@ -296,7 +298,31 @@ class SalesController extends BaseController
                 }
             echo'</div></div>';
         }else{
+            try {
+                $thumbnail = $request->foto;
+                $thumbnailFileName =$request->NoU.'-'.date('ymdhis').'.'.$thumbnail->getClientOriginalExtension();
+                $thumbnailPath =$thumbnailFileName;
 
+                $file =\Storage::disk('public_absen');
+                if($file->put($thumbnailPath, file_get_contents($thumbnail))){
+                    $save=Mediasales::UpdateOrcreate([
+                        'NoU'=>$request->NoU,
+                        'KD_Salesman'=>$akses->username,
+                    ],[
+                        'foto'=>$thumbnailPath,
+                        'KD_Customer'=>$request->KD_Customer,
+                        'lat'=>$request->lat,
+                        'lon'=>$request->lon,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                    ]);
+
+                    $success=true;
+                return $this->sendResponse($success, 'success');
+                }
+            } catch (\Throwable $th) {
+                return $this->sendResponseerror($th->getMessage(), $th->getCode());
+            }
         }
     }
 
