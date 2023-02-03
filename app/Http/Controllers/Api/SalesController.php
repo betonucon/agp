@@ -346,7 +346,8 @@ class SalesController extends BaseController
         $gg1=prev_tanggal(date('Y-m-d'),'-1');
         $gg2=prev_tanggal(date('Y-m-d'),'-8');
         $query=Viewtagihan::query();
-        $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->whereDate('Due_Date',$request->tanggal)->orderBy('Due_Date','Desc')->paginate(20);
+        // $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->whereDate('Due_Date',$request->tanggal)->orderBy('Due_Date','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->orderBy('Due_Date','Desc')->paginate(20);
         $cek=$query->count();
         
         $col=[];
