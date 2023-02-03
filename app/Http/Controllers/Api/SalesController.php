@@ -288,15 +288,14 @@ class SalesController extends BaseController
         $val=$validator->Errors();
 
 
-        if ($validator->fails()) {
-            echo'<div class="nitof"><b>Oops Error !</b><br><div class="isi-nitof">';
-                foreach(parsing_validator($val) as $value){
-                    
-                    foreach($value as $isi){
-                        echo'-&nbsp;'.$isi.'<br>';
-                    }
+        if($validator->fails()){
+            $error="";
+            foreach(parsing_validator($val) as $value){
+                foreach($value as $isi){
+                   $error.=$isi."\n";
                 }
-            echo'</div></div>';
+            }
+            return $this->sendResponseerror($error, 'gagal');
         }else{
             try {
                 $thumbnail = $request->foto;
