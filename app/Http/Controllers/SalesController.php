@@ -75,7 +75,7 @@ class SalesController extends Controller
             $data = $query->where('KD_GroupSales',$request->KD_GroupSales);
         }
         $data = $query->orderBy('active_status','Asc')->get();
-
+        
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('akun', function ($row) {
@@ -126,8 +126,9 @@ class SalesController extends Controller
         error_reporting(0);
         $query=Viewjalursales::query();
         $data=$query->whereDate('tgl_register',date('Y-m-d'))->orderBy('tgl_register','Desc')->get();
-
+        $success=[];
         return Datatables::of($data)
+            
             ->addIndexColumn()
             ->addColumn('tanggal', function ($row) {
                 $btn=tanggal_indo($row->tgl_register);
