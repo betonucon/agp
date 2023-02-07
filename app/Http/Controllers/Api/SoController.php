@@ -205,6 +205,13 @@ class SoController extends BaseController
         
     }
 
+    public function hapus(Request $request)
+    {
+        $akses = $request->user(); 
+        $delete=Sodetail::where('id',$request->id)->delete();
+        $success=true;
+        return $this->sendResponse($success, 'success');
+    }
     public function keranjang(Request $request)
     {
         $akses = $request->user(); 
@@ -227,6 +234,7 @@ class SoController extends BaseController
         foreach($get as $o){
            $sub=[];
                 $cl=[];
+                $cl['id'] =$o->id;
                 $cl['KD_Barang'] =$o->KD_Barang;
                 $cl['Nama_Barang'] = $o->Nama_Barang;
                 $cl['Satuan'] = $o->Satuan;

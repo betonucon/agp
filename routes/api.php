@@ -39,6 +39,8 @@ Route::group(['prefix' => 'master'],function(){
 Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::post('/create', [SoController::class, 'create']);
     Route::get('/keranjang', [SoController::class, 'keranjang']);
+    Route::get('/hapus', [SoController::class, 'hapus']);
+    Route::get('/hapus_order', [SoController::class, 'hapus_order']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/tagihan', [SalesController::class, 'tagihan']);
