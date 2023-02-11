@@ -27,7 +27,7 @@ class ProdukController extends BaseController
         if($request->Nama_Barang!=""){
             $get=$query->where('Nama_Barang','LIKE','%'.$request->Nama_Barang.'%');
         }
-        $get=$query->orderBy('Nama_Barang','Asc')->paginate(20);
+        $get=$query->where('Nama_Barang','NOT LIKE','*%')->orderBy('Nama_Barang','Asc')->paginate(20);
         $cek=$query->count();
         
         $col=[];
