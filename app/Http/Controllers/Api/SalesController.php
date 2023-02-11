@@ -348,6 +348,7 @@ class SalesController extends BaseController
         $query=Viewtagihan::query();
         // $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->whereDate('Due_Date',$request->tanggal)->orderBy('Due_Date','Desc')->paginate(20);
         $get=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->orderBy('Due_Date','Desc')->paginate(20);
+        $sum=$query->where('KD_Salesman',$akses->username)->where('KD_Customer',$request->KD_Customer)->sum('Jml_Sisa');
         $cek=$query->count();
         
         $col=[];
@@ -372,6 +373,7 @@ class SalesController extends BaseController
         $success['total_page'] =  ceil($cek/10);
         $success['total_item'] =  $cek;
         $success['current_page'] =  $page;
+        $success['total_sisa'] =  no_decimal($sum);;
         $success['result'] =  $col;
         
         
