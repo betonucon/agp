@@ -27,6 +27,10 @@
                     lengthMenu: [20,50,100],
                     searching:true,
                     lengthChange:false,
+                    defeRender: true,
+                    processing: true,
+                    serverSide: true,
+                    
                     fixedHeader: {
                         header: true,
                         headerOffset: $('#header').height()

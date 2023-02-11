@@ -358,6 +358,7 @@ class SalesController extends BaseController
                 $cl['KD_Customer'] = $o->KD_Customer;
                 $cl['Perusahaan'] = $o->Perusahaan;
                 $cl['KD_Salesman_order'] = $o->KD_Salesman_order;
+                $cl['KD_Transaksi'] = $o->KD_Transaksi;
                 $cl['Due_Date'] = tanggal_indo($o->Due_Date);
                 $cl['KD_Salesman'] = $o->KD_Salesman;
                 $cl['Jml_Tagihan'] = no_decimal($o->Jml_Tagihan);
