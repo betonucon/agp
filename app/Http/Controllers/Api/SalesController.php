@@ -373,7 +373,7 @@ class SalesController extends BaseController
         $success['total_page'] =  ceil($cek/10);
         $success['total_item'] =  $cek;
         $success['current_page'] =  $page;
-        $success['total_sisa'] =  no_decimal($sum);;
+        $success['total_sisa'] =  no_decimal($sum);
         $success['result'] =  $col;
         
         
