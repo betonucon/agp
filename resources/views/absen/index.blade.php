@@ -46,6 +46,7 @@
                         { data: 'KD_Salesman' },
                         { data: 'nama_salesman' },
                         { data: 'Perusahaan' },
+                        { data: 'tgl_register' },
                         { data: 'created_at' },
                         
                       ],
@@ -158,6 +159,7 @@
                             <th width="13%">KD Salesman</th>
                             <th>Salesman</th>
                             <th width="18%">Lokasi / Customer</th>
+                            <th width="18%">Rencana</th>
                             <th width="18%">Waktu Absen</th>
                         </tr>
                     </thead>
@@ -219,7 +221,7 @@
       function lihat_data(id,lat,lon,kd_salesman,nama_salesman,perusahaan,foto,created_at){
           $('#modal-foto .modal-title').html(nama_salesman);
           $('#modal-foto').modal('show');
-          $('#foto').html('<img src="{{url('_foto_absen')}}/'+foto+'">');
+          $('#foto').html('<img src="{{url_plug()}}/_file_absen/'+foto+'" width="100%" height="200px">');
           $('#lokasi').html(perusahaan+'('+lat+','+lon+')<h4>'+nama_salesman+'</h4><h5>'+created_at+'</h5>');
           
           var map = L.map('map').setView([-6.01560072,105.98171146], 11.5);
