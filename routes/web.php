@@ -7,6 +7,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomermobileController;
 use App\Http\Controllers\SalesorderController;
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\Auth\LogoutController;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,19 @@ Route::group(['prefix' => 'barang','middleware'    => 'auth'],function(){
     Route::post('/',[BarangController::class, 'store']);
     Route::post('/upload',[BarangController::class, 'upload']);
     Route::post('/import',[BarangController::class, 'import']);
+});
+Route::group(['prefix' => 'absen','middleware'    => 'auth'],function(){
+    Route::get('/',[AbsenController::class, 'index']);
+    Route::get('/view',[AbsenController::class, 'view_data']);
+    Route::get('/modal_foto',[AbsenController::class, 'modal_foto']);
+    Route::get('/getdata',[AbsenController::class, 'get_data']);
+    Route::get('/hapus_foto',[AbsenController::class, 'hapus_foto']);
+    Route::get('/aktif_foto',[AbsenController::class, 'aktif_foto']);
+    Route::get('/create',[AbsenController::class, 'create']);
+    Route::get('/modal',[AbsenController::class, 'modal']);
+    Route::post('/',[AbsenController::class, 'store']);
+    Route::post('/upload',[AbsenController::class, 'upload']);
+    Route::post('/import',[AbsenController::class, 'import']);
 });
 Route::group(['middleware' => 'auth'], function() {
     /**

@@ -27,15 +27,16 @@
             <li><a href="{{url('jadwal/kemarin')}}">&nbsp;<i class="fa  fa-sort-down"></i> Kemarin</a></li>
           </ul>
         </li>
-        <li class="treeview @if(Request::is('salesorder/*')==1 || Request::is('salesorder')==1 ) menu-open @endif">
+        <li class="treeview @if(Request::is('salesorder/*')==1 || Request::is('absen')==1 || Request::is('salesorder')==1 ) menu-open @endif">
           <a href="#">
             <i class="fa fa-cubes text-white"></i> <span>Sales Order (SO)</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu" style="display:@if(Request::is('salesorder/*')==1 || Request::is('salesorder')==1) block @endif">
+          <ul class="treeview-menu" style="display:@if(Request::is('absen')==1 ||Request::is('salesorder/*')==1 || Request::is('salesorder')==1) block @endif">
             <li><a href="{{url('salesorder')}}">&nbsp;<i class="fa  fa-sort-down"></i> New Request</a></li>
+            <li><a href="{{url('absen')}}">&nbsp;<i class="fa  fa-sort-down"></i> Absen</a></li>
             <li><a href="{{url('salesorder/approved')}}">&nbsp;<i class="fa  fa-sort-down"></i> Approved Request</a></li>
           </ul>
         </li>

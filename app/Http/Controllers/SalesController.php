@@ -176,7 +176,7 @@ class SalesController extends Controller
         $gg1=prev_tanggal(date('Y-m-d'),'-1');
         $gg2=prev_tanggal(date('Y-m-d'),'-8');
         $query=Viewjalursales::query();
-        $data=$query->where('KD_Salesman',$akses->username)->where('tgl_register','<',$gg2)->orderBy('tgl_register','Desc')->get();
+        $data=$query->orderBy('tgl_register','Desc')->get();
 
         return Datatables::of($data)
             ->addIndexColumn()
