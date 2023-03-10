@@ -43,12 +43,10 @@ Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::get('/hapus', [SoController::class, 'hapus']);
     Route::get('/hapus_order', [SoController::class, 'hapus_order']);
 });
-Route::group(['prefix' => 'faktur','middleware'    => 'auth:sanctum'],function(){
-    Route::get('/', [FakturController::class, 'customer_faktur']);
+Route::group(['middleware'    => 'auth:sanctum'],function(){
+    Route::get('/faktur', [FakturController::class, 'customer_faktur']);
     
-    Route::get('/detail', [FakturController::class, 'faktur']);
-    Route::get('/hapus', [FakturController::class, 'hapus']);
-    Route::get('/hapus_order', [FakturController::class, 'hapus_order']);
+    Route::get('/faktur/detail', [FakturController::class, 'faktur']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/tagihan', [SalesController::class, 'tagihan']);
