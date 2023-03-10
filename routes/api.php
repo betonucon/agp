@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\SoController;
+use App\Http\Controllers\Api\FakturController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,6 +42,12 @@ Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::get('/keranjang', [SoController::class, 'keranjang']);
     Route::get('/hapus', [SoController::class, 'hapus']);
     Route::get('/hapus_order', [SoController::class, 'hapus_order']);
+});
+Route::group(['prefix' => 'faktur','middleware'    => 'auth:sanctum'],function(){
+    Route::get('/detail', [FakturController::class, 'faktur']);
+    Route::get('/', [FakturController::class, 'customer_faktur']);
+    Route::get('/hapus', [FakturController::class, 'hapus']);
+    Route::get('/hapus_order', [FakturController::class, 'hapus_order']);
 });
 Route::group(['middleware'    => 'auth:sanctum'],function(){
     Route::get('/tagihan', [SalesController::class, 'tagihan']);
