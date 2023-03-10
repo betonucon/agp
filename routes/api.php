@@ -44,8 +44,9 @@ Route::group(['prefix' => 'so','middleware'    => 'auth:sanctum'],function(){
     Route::get('/hapus_order', [SoController::class, 'hapus_order']);
 });
 Route::group(['prefix' => 'faktur','middleware'    => 'auth:sanctum'],function(){
-    Route::get('/detail', [FakturController::class, 'faktur']);
     Route::get('/', [FakturController::class, 'customer_faktur']);
+    
+    Route::get('/detail', [FakturController::class, 'faktur']);
     Route::get('/hapus', [FakturController::class, 'hapus']);
     Route::get('/hapus_order', [FakturController::class, 'hapus_order']);
 });
