@@ -19,7 +19,7 @@ use Validator;
    
 class FakturController extends BaseController
 {
-    public function faktur(Request $request,$tahun=null)
+    public function faktur(Request $request)
     {
         $akses = $request->user(); 
         if($request->page==""){
@@ -54,7 +54,7 @@ class FakturController extends BaseController
         return $this->sendResponse($success, 'success');
     }
 
-    public function customer_faktur(Request $request,$tahun=null)
+    public function customer_faktur(Request $request)
     {
         $akses = $request->user(); 
         if($request->page==""){
@@ -89,7 +89,7 @@ class FakturController extends BaseController
         return $this->sendResponse($success, 'success');
     }
 
-    public function jalur_sales_prev(Request $request,$tahun=null)
+    public function jalur_sales_prev(Request $request)
     {
         $akses = $request->user(); 
         if($request->page==""){
@@ -222,7 +222,7 @@ class FakturController extends BaseController
 
         return $this->sendResponse($success, 'success');
     }
-    public function jadwal_sales_riwayat(Request $request,$tahun=null)
+    public function jadwal_sales_riwayat(Request $request)
     {
         $akses = $request->user(); 
         if($request->page==""){
