@@ -105,7 +105,7 @@ class SalesController extends BaseController
         $gg1=prev_tanggal(date('Y-m-d'),'-1');
         $gg2=prev_tanggal(date('Y-m-d'),'-7');
         $query=Viewjalursales::query();
-        $get=$query->where('KD_Salesman',$akses->username)->whereBetween('tgl_register',[$gg2,$gg1])->orderBy('tgl_register','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->whereDate('tgl_register',$request->tanggal)->orderBy('tgl_register','Desc')->paginate(20);
         $cek=$query->count();
         $col=[];
         foreach($get as $o){
