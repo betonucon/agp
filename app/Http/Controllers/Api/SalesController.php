@@ -157,6 +157,9 @@ class SalesController extends BaseController
                 $cl['Alamat'] = $o->Alamat;
                 $cl['foto'] = url_plug().'/_file_absen/'.$o->foto;
                 $cl['status_absen'] = $o->status_absen;
+                $cl['lat'] = $o->lat;
+                $cl['lon'] = $o->lon;
+                $cl['status_absen'] = $o->status_absen;
                 $cl['total_absen'] = total_absen($o->KD_Salesman,tanggal_only($o->tgl_register));
                 $cl['waktu_absen'] = $o->waktu_absen;
                 $cl['Tempo'] = $o->Term;
