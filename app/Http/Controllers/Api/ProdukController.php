@@ -39,8 +39,8 @@ class ProdukController extends BaseController
                 $cl['Nama_Divisi'] = $o->Nama_Divisi;
                 $cl['Satuan_aktif'] = $o->hargamunculsatuanke;
                 $cl['Satuan_jual'] = $o['Satuan'.$o->hargamunculsatuanke];
-                $cl['Isi'] = $o['Isi'.$o->hargamunculsatuanke];
-                $cl['Harga_Satuan_Jual'] = no_decimal($o['harga_ke1']/$o['Isi'.$o->hargamunculsatuanke]);
+                $cl['Isi'] = (int) $o->Spec;
+                $cl['Harga_Satuan_Jual'] = no_decimal($o['harga_ke1']/((int) $o->Spec));
                 $cl['Satuan'] = $o['Satuan4'];
                 $cl['harga'] = no_decimal($o['harga_ke1']);
                 $cl['keterangan'] = $o->keterangan;
