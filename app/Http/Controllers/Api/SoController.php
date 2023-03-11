@@ -88,14 +88,12 @@ class SoController extends BaseController
                 }else{
                     $discon=$request->discon;
                 }
-                $harga=($barang['harga_ke4']-$discon);
+                $harga=($request->harga-$discon);
                 $save2=Sodetail::UpdateOrcreate([
                     'NoU'=>$request->NoU,
                     'KD_Barang'=>$request->KD_Barang,
                     'kd_transaksi'=>$KD_Transaksi,
                 ],[
-                    'qty'.$barang->hargamunculsatuanke=>$request->qty,
-                    'Disc'.$barang->hargamunculsatuanke=>$request->discon,
                     'discon'=>$discon,
                     'Satuan'=>$request->Satuan,
                     'Harga_Satuan'=>$harga,
