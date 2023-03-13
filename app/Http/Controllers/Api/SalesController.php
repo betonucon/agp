@@ -145,7 +145,7 @@ class SalesController extends BaseController
         // if($request->Nama_Barang!=""){
         //     $get=$query->where('Nama_Barang',$request->Nama_Barang);
         // }
-        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->whereDate('tgl_register',date('Y-m-d'))->orderBy('tgl_register','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->orderBy('tgl_register','Desc')->paginate(20);
         $cek=$query->count();
         
         $col=[];
@@ -195,7 +195,7 @@ class SalesController extends BaseController
         $gg1=prev_tanggal(date('Y-m-d'),'-1');
         $gg2=prev_tanggal(date('Y-m-d'),'-7');
         $query=Viewjadwalsales::query();
-        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->whereBetween('tgl_register',[$gg2,$gg1])->orderBy('tgl_register','Desc')->paginate(20);
+        $get=$query->where('KD_Salesman',$akses->username)->where('kd_jalurpengiriman',$kd_jalurpengiriman)->orderBy('tgl_register','Desc')->paginate(20);
         $cek=$query->count();
         
         $col=[];
